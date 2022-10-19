@@ -1,0 +1,19 @@
+#spring:
+#  kafka:
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+##    producer:
+##      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+##      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    consumer:
+#    group-id: messaging_api
+#    auto-offset-reset: earliest
+#    key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+#    value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+#    properties:
+#      spring.json.trusted.packages: '*'
+#      spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+#      spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+#  listener:
+#    missing-topics-fatal: false
