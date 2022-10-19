@@ -1,0 +1,66 @@
+server:
+  port: 8084
+
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER:localhost:9092}
+    consumer:
+      group-id: group
+
+    custom:
+      student-topic: ${KAFKA_STUDENT_TOPIC:student-event}
+
+  application:
+    name: ${APPLICATION_NAME:student-service}
+
+  data:
+    mongodb:
+      database: ${MONGO_DATABASE:student-db}
+      port: 27017
+      host: ${MONGO_URL:localhost}
+      auto-index-creation: true
+
+  sleuth:
+    sampler:
+      percentage: 1
+  zipkin:
+    enabled: ${ZIPKIN_ENABLED:false}
+    base-url: ${ZIPKIN_URL:http://localhost:9411/}
+
+app:
+  jwt:
+    token:
+      secret-key: ${JWT_SECRET_KEY:secret}
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+    instances:
+      defaultsForCandidateServiceApp:
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 30000
+        permitNumberOfCallsInHalfOpenState: 2
+
+  retry:
+    configs:
+      default:
+        registerHealthIndicator: true
+    instances:
+      retryForCandidates:
+        maxRetryAttempts: 3
+        waitDuration: 2000
