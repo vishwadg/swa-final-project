@@ -27,7 +27,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;;
-    private final ModelMapper modelMapper;
+    private final ModelMapper modelMapper = new ModelMapper();
     @Override
     public TokenResponse login(UserLoginDTO payload) throws JsonProcessingException {
         Authentication authentication = authenticationManager
@@ -42,9 +42,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public UserDTO register(UserDTO payload) {
         User user = modelMapper.map(payload, User.class);
-        user.setRoles(Set.of(UserRole.ROLE_USER));
-        user = userRepository.save(user);
+        user.setRoles(Set.of(UserRole.ROLE_TUTOR));
+        User savedUser = userRepository.save(user);
         user.setPassword(null);
-        return modelMapper.map(user, UserDTO.class);
+        return modelMapper.map(savedUser, UserDTO.class);
     }
 }

@@ -1,7 +1,7 @@
 package com.example.commonsmodule.security.enums;
 
 public enum UserRole {
-    ROLE_USER("ROLE_USER"), ROLE_ADMIN("ROLE_ADMIN");
+    ROLE_STUDENT("ROLE_STUDENT"), ROLE_TUTOR("ROLE_TUTOR");
     private String value;
 
     UserRole(String value) {this.value = value;}
