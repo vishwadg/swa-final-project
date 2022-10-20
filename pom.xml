@@ -10,6 +10,9 @@
 
     <modules>
         <module>authentication-service</module>
+        <module>student-service</module>
+        <module>tutor-requirement-service</module>
+        <module>tutor-requirement-search-service</module>
     </modules>
 
     <properties>
