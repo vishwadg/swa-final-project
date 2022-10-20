@@ -44,7 +44,7 @@ public class KafkaConsumerConfig {
         DefaultKafkaConsumerFactory<String, Object> defaultKafkaConsumerFactory = new DefaultKafkaConsumerFactory<>(consumerJsonConfig());
 
         final JsonDeserializer<Object> valueDeserializer = new JsonDeserializer<>();
-        valueDeserializer.addTrustedPackages("com.example.tutorrequirementservice.entity.DTOs");
+        valueDeserializer.addTrustedPackages("com.example.commonsmodule.DTOs");
         defaultKafkaConsumerFactory.setValueDeserializer(valueDeserializer);
         defaultKafkaConsumerFactory.setKeyDeserializer(new StringDeserializer());
 

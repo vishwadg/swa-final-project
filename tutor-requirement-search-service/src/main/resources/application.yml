@@ -26,12 +26,12 @@ spring:
       tutor-requirement-topic: ${KAFKA_TUTOR_REQUIREMENT_TOPIC:tutor-requirement-events}
 
 
-  cache:
-    type: redis
-  redis:
-    host: ${REDIS_HOST:localhost}
-    port: ${REDIS_PORT:6379}
-    password: ${REDIS_PASSWORD:redis-pass}
+#  cache:
+#    type: redis
+#  redis:
+#    host: ${REDIS_HOST:localhost}
+#    port: ${REDIS_PORT:6379}
+#    password: ${REDIS_PASSWORD:redis-pass}
 
   sleuth:
     enabled: ${SLEUTH_ENABLED:true}
