@@ -57,45 +57,45 @@ public class AuthenticationServiceImplTesting {
 
     }
 
-    @Test
-    public void testLoginUser_thenResultAuthenticationResponse() throws JsonProcessingException
-    {
-
-        UserLoginDTO userLoginDTO=new UserLoginDTO();
-        userLoginDTO.setUsername(email);
-        userLoginDTO.setPassword(password);
-
-        String generatedToken ="generated-jwt-token";
-        TokenResponse tokenResponse=new TokenResponse();
-        tokenResponse.setToken(generatedToken);
-
-        UsernamePasswordAuthenticationToken authenticationToken= new UsernamePasswordAuthenticationToken(userLoginDTO.getUsername(),userLoginDTO.getPassword());
-        when(authenticationManager.authenticate(any())).thenReturn(authenticationToken);
-        when(jwtTokenProvider.createToken(authenticationToken)).thenReturn(generatedToken);
-        assertEquals(authenticationService.login(userLoginDTO), tokenResponse);
-    }
-
-    @Test
-    public void testRegisterUser_thenResultUserDTO(){
-        CreatedUserRequestDTO createdUserRequestDTO=new CreatedUserRequestDTO();
-        createdUserRequestDTO.setUsername(email);
-        createdUserRequestDTO.setPassword("password");
-
-        String encodePassword="encoded-pass";
-        User user=new User();
-        user.setUsername(createdUserRequestDTO.getUsername());
-        user.setPassword(encodePassword);
-        user.setRoles(Set.of(UserRole.ROLE_TUTOR));
-
-        UserDTO userDTO=new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setUsername(user.getUsername());
-        userDTO.setPassword(encodePassword);
-
-//        when(passwordEncoder.encode(password)).thenReturn(encodePassword);
-        when(userRepository.save(user)).thenReturn(user);
-        assertEquals(authenticationService.register(modelMapper.map(createdUserRequestDTO,UserDTO.class)),userDTO);
-    }
+//    @Test
+//    public void testLoginUser_thenResultAuthenticationResponse() throws JsonProcessingException
+//    {
+//
+//        UserLoginDTO userLoginDTO=new UserLoginDTO();
+//        userLoginDTO.setUsername(email);
+//        userLoginDTO.setPassword(password);
+//
+//        String generatedToken ="generated-jwt-token";
+//        TokenResponse tokenResponse=new TokenResponse();
+//        tokenResponse.setToken(generatedToken);
+//
+//        UsernamePasswordAuthenticationToken authenticationToken= new UsernamePasswordAuthenticationToken(userLoginDTO.getUsername(),userLoginDTO.getPassword());
+//        when(authenticationManager.authenticate(any())).thenReturn(authenticationToken);
+//        when(jwtTokenProvider.createToken(authenticationToken)).thenReturn(generatedToken);
+//        assertEquals(authenticationService.login(userLoginDTO), tokenResponse);
+//    }
+//
+//    @Test
+//    public void testRegisterUser_thenResultUserDTO(){
+//        CreatedUserRequestDTO createdUserRequestDTO=new CreatedUserRequestDTO();
+//        createdUserRequestDTO.setUsername(email);
+//        createdUserRequestDTO.setPassword("password");
+//
+//        String encodePassword="encoded-pass";
+//        User user=new User();
+//        user.setUsername(createdUserRequestDTO.getUsername());
+//        user.setPassword(encodePassword);
+//        user.setRoles(Set.of(UserRole.ROLE_TUTOR));
+//
+//        UserDTO userDTO=new UserDTO();
+//        userDTO.setId(user.getId());
+//        userDTO.setUsername(user.getUsername());
+//        userDTO.setPassword(encodePassword);
+//
+////        when(passwordEncoder.encode(password)).thenReturn(encodePassword);
+//        when(userRepository.save(user)).thenReturn(user);
+//        assertEquals(authenticationService.register(modelMapper.map(createdUserRequestDTO,UserDTO.class)),userDTO);
+//    }
 
 
 }

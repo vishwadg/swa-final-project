@@ -1,6 +1,6 @@
 package com.example.tutorrequirementservice.services;
 
-import com.example.tutorrequirementservice.entity.DTOs.TutorRequirementDTO;
+import com.example.commonsmodule.DTOs.TutorRequirementDTO;
 import com.example.tutorrequirementservice.entity.TutorRequirement;
 import com.example.tutorrequirementservice.repositories.TutorRequirementRepository;
 import lombok.RequiredArgsConstructor;

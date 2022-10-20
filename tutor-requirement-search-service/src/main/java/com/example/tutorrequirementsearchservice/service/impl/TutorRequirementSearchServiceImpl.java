@@ -3,7 +3,7 @@ package com.example.tutorrequirementsearchservice.service.impl;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.Refresh;
 import co.elastic.clients.elasticsearch.core.IndexRequest;
-import com.example.tutorrequirementsearchservice.DTOs.TutorRequirementDTO;
+import com.example.commonsmodule.DTOs.TutorRequirementDTO;
 import com.example.tutorrequirementsearchservice.service.TutorRequirementSearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

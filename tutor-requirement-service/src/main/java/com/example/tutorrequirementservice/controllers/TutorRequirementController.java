@@ -1,6 +1,6 @@
 package com.example.tutorrequirementservice.controllers;
 
-import com.example.tutorrequirementservice.entity.DTOs.TutorRequirementDTO;
+import com.example.commonsmodule.DTOs.TutorRequirementDTO;
 import com.example.tutorrequirementservice.services.TutorRequirementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
