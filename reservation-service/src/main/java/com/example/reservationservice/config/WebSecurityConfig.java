@@ -1,4 +1,4 @@
-package com.example.tutorservice.configs;
+package com.example.reservationservice.config;
 
 import com.example.commonsmodule.security.JwtTokenFilter;
 import com.example.commonsmodule.security.JwtTokenProvider;
