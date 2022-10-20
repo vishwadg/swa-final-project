@@ -13,6 +13,8 @@
         <module>student-service</module>
         <module>tutor-requirement-service</module>
         <module>tutor-requirement-search-service</module>
+        <module>tutor-service</module>
+        <module>commons-module</module>
     </modules>
 
     <properties>
