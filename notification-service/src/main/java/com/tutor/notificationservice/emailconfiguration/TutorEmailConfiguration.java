@@ -1,14 +1,23 @@
 package com.tutor.notificationservice.emailconfiguration;
 
+import com.fasterxml.jackson.databind.JsonSerializer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 @Configuration
@@ -51,5 +60,38 @@ public class TutorEmailConfiguration {
     @Bean
     public ModelMapper modelMapper(){
         return new ModelMapper();
+    }
+
+//    @Bean
+    public Map<String, Object>producerConfig()
+    {
+        // Create a map of a string
+        // and object
+        Map<String, Object> config = new HashMap<>();
+
+        config.put(
+                ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
+                "127.0.0.1:9092");
+
+        config.put(
+                ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
+                StringSerializer.class);
+
+        config.put(
+                ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
+                JsonSerializer.class);
+
+        return config;
+                //new DefaultKafkaProducerFactory<>(config);
+    }
+@Bean
+public <T> ProducerFactory<String, T> producerFactory(){
+    return new DefaultKafkaProducerFactory<>(producerConfig());
+}
+
+    @Primary
+    @Bean
+    public <T> KafkaTemplate<String, T> kafkaTemplate(){
+        return new KafkaTemplate<>(producerFactory());
     }
     }
