@@ -1,17 +1,18 @@
-package com.example.tutorservice.services;
+package com.example.tutorservice.services.impl;
 
 import com.example.tutorservice.entities.DTOs.TutorDTO;
 import com.example.tutorservice.entities.Tutor;
 import com.example.tutorservice.repositories.TutorRepository;
+import com.example.tutorservice.services.TutorService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -26,24 +27,17 @@ public class TutorServiceImpl implements TutorService {
     private KafkaTemplate<String, TutorDTO> kafkaTutorTemplate;
 
     @Autowired
-    private  ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Override
     public TutorDTO signupTutor(TutorDTO tutorDTO) {
         log.info("Tutor sign up process started ....");
-        Tutor tutor = new Tutor();
-        tutor.setName(tutorDTO.getName());
-        tutor.setEmail(tutorDTO.getEmail());
-        tutor.setAddress(tutorDTO.getAddress());
-        tutor.setExpertise(tutorDTO.getExpertise());
-        tutor.setShortInfo(tutorDTO.getShortInfo());
-
+        Tutor tutor = modelMapper.map(tutorDTO, Tutor.class);
         Tutor tutorRepo = tutorRepository.save(tutor);
         tutorDTO.setTutorId(tutorRepo.getTutorId());
         kafkaTutorTemplate.send(tutorTopic, tutorDTO);
         log.info("Success: Tutor data saved");
         return tutorDTO;
-
     }
 
     @Override
@@ -56,13 +50,7 @@ public class TutorServiceImpl implements TutorService {
             throw new RuntimeException("Sorry, tutor not found in the system");
         }
 
-        TutorDTO tutorDTO = new TutorDTO();
-        tutorDTO.setTutorId(tutor.getTutorId());
-        tutorDTO.setName(tutor.getName());
-        tutorDTO.setEmail(tutor.getEmail());
-        tutorDTO.setAddress(tutor.getAddress());
-        tutorDTO.setExpertise(tutor.getExpertise());
-        tutorDTO.setShortInfo(tutor.getShortInfo());
+        TutorDTO tutorDTO = modelMapper.map(tutor, TutorDTO.class);
         log.info("Success: Tutor found with id {}", id);
         return tutorDTO;
     }
@@ -78,15 +66,9 @@ public class TutorServiceImpl implements TutorService {
 
         List<TutorDTO> tutorDTOList = tutorList.stream().map(
                 tutor -> {
-                    TutorDTO tutorDTO = new TutorDTO();
-                    tutorDTO.setTutorId(tutor.getTutorId());
-                    tutorDTO.setName(tutor.getName());
-                    tutorDTO.setEmail(tutor.getEmail());
-                    tutorDTO.setAddress(tutor.getAddress());
-                    tutorDTO.setExpertise(tutor.getExpertise());
-                    tutorDTO.setShortInfo(tutor.getShortInfo());
+                    TutorDTO tutorDTO = modelMapper.map(tutor, TutorDTO.class);
                     return tutorDTO;
-                }).collect(Collectors.toList());
+                }).toList();
         log.info("Success: Tutors list found");
         return tutorDTOList;
     }

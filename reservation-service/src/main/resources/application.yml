@@ -1,14 +1,18 @@
 server:
-  port: 8082
+  port: 8085
 
 spring:
   kafka:
     producer:
       bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
-
+    consumer:
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:services-group}
     custom:
       tutor-topic: ${KAFKA_TUTOR_TOPIC:tutor-events}
-#      notification-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-events}
+
+      reservation-topic: ${KAFKA_RESERVATION_TOPIC:reservation-events}
+
+  #      notification-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-events}
 
 
   application:
@@ -16,11 +20,11 @@ spring:
 
   data:
     mongodb:
-#      uri: mongodb://${MONGO_URL:localhost}:${MONGO_PORT:27017}/${MONGO_DATABASE:candidate-db}
-#      authentication-database: admin
-#      username: ${MONGO_USERNAME:mongo}
-#      password: ${MONGO_PASSWORD:mongo}
-      database: ${MONGO_DATABASE:tutor-db}
+      #      uri: mongodb://${MONGO_URL:localhost}:${MONGO_PORT:27017}/${MONGO_DATABASE:candidate-db}
+      #      authentication-database: admin
+      #      username: ${MONGO_USERNAME:mongo}
+      #      password: ${MONGO_PASSWORD:mongo}
+      database: ${MONGO_DATABASE:reservation-db}
       port: 27017
       host: ${MONGO_URL:localhost}
       auto-index-creation: true
@@ -38,7 +42,6 @@ app:
     token:
       secret-key: ${JWT_SECRET_KEY:tutor-service-jwt-secret-key}
       expiry: 100000
-
 
 management:
   endpoint:
