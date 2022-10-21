@@ -1,4 +1,4 @@
-package com.example.tutorservice.entities.DTOs;
+package com.example.commonsmodule.DTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,4 +16,5 @@ public class TutorDTO {
     private String address;
     private String expertise;
     private String shortInfo;
+    private Long userId;
 }

@@ -1,6 +1,7 @@
 package com.example.studentservice.services;
 
-import com.example.studentservice.entities.DTOs.StudentDTO;
+
+import com.example.commonsmodule.DTOs.StudentDTO;
 
 import java.util.List;
 

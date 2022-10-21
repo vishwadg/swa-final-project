@@ -13,6 +13,15 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+  kafka:
+    producer:
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:127.0.0.1:9092}
+    consumer:
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:services-group}
+    custom:
+      tutor-signup-topic: ${KAFKA_TUTOR_SIGNUP_TOPIC:tutor-signup-events}
+      student-signup-topic: ${KAFKA_STUDENT_SIGNUP_TOPIC:student-signup-events}
+
 management:
   endpoints:
     web:

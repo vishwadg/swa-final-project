@@ -1,6 +1,6 @@
 package com.example.tutorservice.services;
 
-import com.example.tutorservice.entities.DTOs.TutorDTO;
+import com.example.commonsmodule.DTOs.TutorDTO;
 
 import java.util.List;
 

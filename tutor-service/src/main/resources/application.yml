@@ -7,7 +7,7 @@ spring:
       bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
 
     custom:
-      tutor-topic: ${KAFKA_TUTOR_TOPIC:tutor-events}
+      tutor-signup-email-topic: ${KAFKA_TUTOR_SIGNUP_EMAIL_TOPIC:student-signup-email-events}
 #      notification-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-events}
 
 
