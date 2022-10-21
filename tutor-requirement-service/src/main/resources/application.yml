@@ -1,0 +1,40 @@
+server:
+  port: ${SERVER_PORT:8083}
+
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:127.0.0.1:9092}
+    consumer:
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:services-group}
+
+    custom:
+      tutor-topic: ${KAFKA_TUTOR_TOPIC:tutor-events}
+      application-topic: ${KAFKA_APPLICATION_TOPIC:application-events}
+      tutor_requirement_topic: ${KAFKA_TUTOR_REQUIREMENT_TOPIC:tutor-requirement-events}
+      notification-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-events}
+
+  application:
+    name: ${APPLICATION_NAME:tutor-requirement-service}
+  data:
+    mongodb:
+      database: ${MONGO_DATABASE:tutor-requirement-db}
+      port: 27017
+      host: ${MONGO_URL:localhost}
+      auto-index-creation: true
+
+app:
+  jwt:
+    token:
+      secret-key: ${JWT_SECRET_KEY:secret}
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus

@@ -1,0 +1,73 @@
+server:
+  port: 8082
+
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+
+    custom:
+      tutor-topic: ${KAFKA_TUTOR_TOPIC:tutor-events}
+#      notification-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-events}
+
+
+  application:
+    name: ${APPLICATION_NAME:tutor-service}
+
+  data:
+    mongodb:
+#      uri: mongodb://${MONGO_URL:localhost}:${MONGO_PORT:27017}/${MONGO_DATABASE:candidate-db}
+#      authentication-database: admin
+#      username: ${MONGO_USERNAME:mongo}
+#      password: ${MONGO_PASSWORD:mongo}
+      database: ${MONGO_DATABASE:tutor-db}
+      port: 27017
+      host: ${MONGO_URL:localhost}
+      auto-index-creation: true
+
+  sleuth:
+    sampler:
+      percentage: 1
+  zipkin:
+    compression:
+      enabled: ${ZIPKIN_ENABLED:false}
+      baseUrl: ${ZIPKIN_URL:http://localhost:9411/}
+
+app:
+  jwt:
+    token:
+      secret-key: ${JWT_SECRET_KEY:tutor-service-jwt-secret-key}
+      expiry: 100000
+
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        register-health-indicator: true
+    instances:
+      defaultsForTutorServiceApp:
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 30000
+        permitted-number-of-calls-in-half-open-state: 2
+
+  retry:
+    configs:
+      default:
+        registerHealthIndicator: true
+    instances:
+      retryForTutors:
+        maxRetryAttempts: 3
+        wait-duration: 2000
