@@ -27,7 +27,7 @@ public class TutorRequirementSearchServiceImpl implements TutorRequirementSearch
     private final ElasticsearchClient elasticsearchClient;
 
     @Override
-    @Cacheable(value = "tutor-requirements", key = "#title", condition = "#result.size() > 0")
+    @Cacheable(value = "tutor-requirements", key = "#tutorRequirement", condition = "#result.size() > 0")
     public List<TutorRequirementDTO> findAllByTutorRequirement(String tutorRequirement) {
         log.info("Find all by tutor requirement {}", tutorRequirement);
         SearchRequest searchRequest = SearchRequest.of(s ->
