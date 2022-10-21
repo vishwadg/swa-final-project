@@ -13,8 +13,7 @@ import java.util.Optional;
 @Service
 public class TutorEmailNotificationImpl implements TutorEmailNotificationService {
 
-
-    @Autowired
+     @Autowired
     private TutorEmailConfiguration tutorEmailConfiguration;
     @Autowired
     private JavaMailSender javaMailSender;

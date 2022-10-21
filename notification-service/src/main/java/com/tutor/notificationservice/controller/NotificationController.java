@@ -1,7 +1,5 @@
 package com.tutor.notificationservice.controller;
 
-import com.tutor.notificationservice.dto.ResponseDto;
-import com.tutor.notificationservice.emailconfiguration.ApplicationConstant;
 import com.tutor.notificationservice.entity.Response;
 import com.tutor.notificationservice.entity.TutorEmail;
 import com.tutor.notificationservice.service.NotificationPublisher;
@@ -28,25 +26,21 @@ public class NotificationController {
     KafkaTemplate<String, String> kafkaTemplate;
     static final String TOPIC = "First Message in Kafka";
 
-    @GetMapping("/kafka/{message}")
-    public String getAllEmails(@PathVariable("message")String message){
-        kafkaTemplate.send(TOPIC, message);
-        return "Message Published on Kafka platform, Horay!";
-
-    }
-    @PostMapping("/email")
+      @PostMapping("/email")
     public Response sendEmail(@RequestBody TutorEmail tutorEmail){
         log.info("The emil sent is {}", tutorEmail);
         return notificationService.sendEmail(tutorEmail);
     }
     @PostMapping(value = "/kafkaAPI")
-    public ResponseEntity<ResponseDto> sendMessageToKafkaTopic(@RequestBody TutorEmail email) {
+    public String sendMessageToKafkaTopic( @RequestBody TutorEmail email) {
         this.notificationPublisher.sendMessage(email);
         log.info("Email Accepted Successful");
-        return ResponseEntity.accepted().body(
-                        ResponseDto.builder()
-                                .message(ApplicationConstant.EMAIL_SUCCESSFULLY_ACCEPTED)
-                                .message(ApplicationConstant.ACCEPTED)
-                                .build());
+        return "Successfully joined the group";
+    }
+    @PostMapping("/publish")
+    public ResponseEntity<String> sendMessage( @RequestBody TutorEmail email) {
+        this.notificationPublisher.sendMessage(email);
+        notificationPublisher.sendMessage(email);
+        return ResponseEntity.ok("Email has sent to the user");
     }
 }

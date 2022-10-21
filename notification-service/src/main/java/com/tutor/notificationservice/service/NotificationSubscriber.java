@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,9 +18,8 @@ public class NotificationSubscriber {
     TutorEmailNotificationService notificationService;
 
     @KafkaListener(topics = ApplicationConstant.TOPIC_NAME,groupId = ApplicationConstant.GROUP_ID)
-    public void consume(@Payload TutorEmail email) {
-
-        logger.info("Email to {} processing started.", email);//email.getTo()
+    public void consume(TutorEmail email) {
+        logger.info(String.format("Email sent to {} processing started. %s", email.toString()));
         notificationService.sendEmail(email);
     }
 }
