@@ -16,7 +16,6 @@ public class NotificationSubscriber {
             LoggerFactory.getLogger(NotificationSubscriber.class);
     @Autowired
     TutorEmailNotificationService notificationService;
-
     @KafkaListener(topics = ApplicationConstant.TOPIC_NAME,groupId = ApplicationConstant.GROUP_ID)
     public void consume(TutorEmail email) {
         logger.info(String.format("Email sent to {} processing started. %s", email.toString()));

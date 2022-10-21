@@ -35,8 +35,4 @@ public class TutorEmailNotificationImpl implements TutorEmailNotificationService
         }
         return response;
     }
-    @Override
-    public Optional<TutorEmail> findAllById(Long id) {
-        return Optional.empty();
-    }
 }

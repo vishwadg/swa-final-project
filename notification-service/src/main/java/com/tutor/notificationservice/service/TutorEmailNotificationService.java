@@ -7,5 +7,4 @@ import java.util.Optional;
 
 public interface TutorEmailNotificationService {
     Response sendEmail(TutorEmail email);
-    Optional<TutorEmail> findAllById(Long id);
 }

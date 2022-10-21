@@ -67,8 +67,8 @@ public class TutorEmailConfiguration {
 
     public Map<String, Object>producerConfig()
     {
-        // Create a map of a string
-        // and object
+        // Create a map of a string and object
+
         Map<String, Object> config = new HashMap<>();
 
         config.put(
@@ -85,27 +85,7 @@ public class TutorEmailConfiguration {
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_DOC, JsonDeserializer.class);
 
         return config;
-                //new DefaultKafkaProducerFactory<>(config);
     }
-//    @Bean
-//    public ConsumerFactory<String, TutorEmail> emailLoadConsumerFactory() {
-//        Map<String, Object> config = new HashMap<>();
-//        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-//        config.put(ConsumerConfig.GROUP_ID_CONFIG, "clevertap_group");
-//        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-//        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-//        config.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-//
-//        return new DefaultKafkaConsumerFactory<>
-//                (config, new StringDeserializer(), new JsonDeserializer<>(TutorEmail.class));
-//    }
-//    @Bean
-//    public ConcurrentKafkaListenerContainerFactory<String, TutorEmail> empPayloadKafkaListenerContainerFactory() {
-//        ConcurrentKafkaListenerContainerFactory<String, TutorEmail> factory =
-//                new ConcurrentKafkaListenerContainerFactory();
-//        factory.setConsumerFactory(emailLoadConsumerFactory());
-//        return factory;
-//    }
 @Bean
 public <T> ProducerFactory<String, T> producerFactory(){
     return new DefaultKafkaProducerFactory<>(producerConfig());

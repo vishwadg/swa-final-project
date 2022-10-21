@@ -18,9 +18,7 @@ public class NotificationPublisher {
 @Autowired
 private KafkaTemplate<String, TutorEmail> kafkaTemplate;
     public void sendMessage(TutorEmail email) {
-//        log.info("Email send to Process.");
         log.info(String.format("Message sent -> %s", email.toString()));
-
         Message<TutorEmail> message = MessageBuilder
                 .withPayload(email)
                 .setHeader(KafkaHeaders.TOPIC, ApplicationConstant.TOPIC_NAME)

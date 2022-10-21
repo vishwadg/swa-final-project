@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/notify")
+@RequestMapping("/send")
 @Slf4j
 public class NotificationController {
     @Autowired
@@ -31,12 +31,12 @@ public class NotificationController {
         log.info("The emil sent is {}", tutorEmail);
         return notificationService.sendEmail(tutorEmail);
     }
-    @PostMapping(value = "/kafkaAPI")
-    public String sendMessageToKafkaTopic( @RequestBody TutorEmail email) {
-        this.notificationPublisher.sendMessage(email);
-        log.info("Email Accepted Successful");
-        return "Successfully joined the group";
-    }
+//    @PostMapping(value = "/kafkaAPI")
+//    public String sendMessageToKafkaTopic( @RequestBody TutorEmail email) {
+//        this.notificationPublisher.sendMessage(email);
+//        log.info("Email Accepted Successful");
+//        return "Successfully joined the group";
+//    }
     @PostMapping("/publish")
     public ResponseEntity<String> sendMessage( @RequestBody TutorEmail email) {
         this.notificationPublisher.sendMessage(email);
