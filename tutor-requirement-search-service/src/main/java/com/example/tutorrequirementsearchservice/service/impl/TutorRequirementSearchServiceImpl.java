@@ -10,6 +10,8 @@ import com.example.commonsmodule.exceptions.NotFoundException;
 import com.example.tutorrequirementsearchservice.service.TutorRequirementSearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -25,33 +27,12 @@ public class TutorRequirementSearchServiceImpl implements TutorRequirementSearch
     private final ElasticsearchClient elasticsearchClient;
 
     @Override
-    public TutorRequirementDTO save(TutorRequirementDTO tutorRequirementDTO) {
-        log.info("Saving Tutor Requirements of ID {}", tutorRequirementDTO.getId());
-        IndexRequest<TutorRequirementDTO> indexRequest = IndexRequest.of(b -> b
-                .index(MY_INDEX)
-                .id(tutorRequirementDTO.getId())
-                .document(tutorRequirementDTO)
-                .refresh(Refresh.True));
-
-        try {
-            elasticsearchClient.index(indexRequest);
-        } catch (IOException e) {
-            log.error("Error elastic search ", e.getMessage());
-            throw new RuntimeException(e);
-        }
-
-        return tutorRequirementDTO;
-    }
-
-    @Override
-    @Cacheable(value = "")
+    @Cacheable(value = "tutor-requirements", key = "#tutorRequirement", condition = "#result.size() > 0")
     public List<TutorRequirementDTO> findAllByTutorRequirement(String tutorRequirement) {
         log.info("Find all by tutor requirement {}", tutorRequirement);
         SearchRequest searchRequest = SearchRequest.of(s ->
                         s.index(MY_INDEX)
-                                .q(tutorRequirement)
-//                        .query(q ->
-//                                q.bool(b -> b.must((m -> m.term(t -> t.field("title").value(FieldValue.of(tutorTitle)))))))
+                        .q(tutorRequirement)
         );
         SearchResponse<TutorRequirementDTO> searchResponse = null;
         try {
@@ -64,7 +45,7 @@ public class TutorRequirementSearchServiceImpl implements TutorRequirementSearch
     }
 
     @Override
-    @Cacheable(value = "", key = "#id")
+    @Cacheable(value = "tutor-requirements", key = "#id")
     public TutorRequirementDTO findOne(String id) {
         log.info("Tutor Requirement searching by id {}", id);
         GetResponse<TutorRequirementDTO> response = null;
@@ -84,8 +65,30 @@ public class TutorRequirementSearchServiceImpl implements TutorRequirementSearch
             throw new NotFoundException("Requested Tutor not found !!!");
         }
     }
+    @Override
+    @CachePut(value = "tutor-requirements", condition = "#result.id != null", key = "#result.title")
+    @CacheEvict(value = "tutor-requirements", key = "#tutorRequirementDTO.title")
+    public TutorRequirementDTO save(TutorRequirementDTO tutorRequirementDTO) {
+        log.info("Saving Tutor Requirements of ID {}", tutorRequirementDTO.getId());
+        IndexRequest<TutorRequirementDTO> indexRequest = IndexRequest.of(b -> b
+                .index(MY_INDEX)
+                .id(tutorRequirementDTO.getId())
+                .document(tutorRequirementDTO)
+                .refresh(Refresh.True));
+
+        try {
+            elasticsearchClient.index(indexRequest);
+        } catch (IOException e) {
+            log.error("Error elastic search ", e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+        return tutorRequirementDTO;
+    }
 
     @Override
+    @CachePut(value = "tutor-requirements", key = "#tutorRequirementDTO.title")
+    @CacheEvict(value = "tutor-requirements", key = "#tutorRequirementDTO.title")
     public TutorRequirementDTO update(TutorRequirementDTO tutorRequirementDTO) {
         log.info("Updating Tutor Requirement of id {} ", tutorRequirementDTO.getId());
         UpdateRequest updateRequest = UpdateRequest.of((b -> b
@@ -105,6 +108,7 @@ public class TutorRequirementSearchServiceImpl implements TutorRequirementSearch
     }
 
     @Override
+    @CacheEvict(value = "tutor-requirements", key = "#id")
     public void deleteById(String id) {
         log.warn("Tutor Requirement delete by id {}", id);
         DeleteRequest deleteRequest = DeleteRequest.of(d -> d
