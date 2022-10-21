@@ -11,5 +11,5 @@ public class TutorRequirementDTO {
     private String id;
     private String title;
     private String description;
-    private String studentId;
+    private Long userId;
 }

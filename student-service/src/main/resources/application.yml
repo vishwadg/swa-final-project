@@ -6,11 +6,13 @@ spring:
     producer:
       bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER:localhost:9092}
     consumer:
-      group-id: ${KAFKA_CONSUMER_GROUP_ID:services-group}
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:group}
 
     custom:
       student-signup-topic: ${KAFKA_STUDENT_SIGNUP_TOPIC:student-signup-events}
       student-signup-email-topic: ${KAFKA_STUDENT_SIGNUP_EMAIL_TOPIC:student-signup-email-events}
+      enable-listeners: ${KAFKA_ENABLE_LISTENERS:true}
 
   application:
     name: ${APPLICATION_NAME:student-service}
