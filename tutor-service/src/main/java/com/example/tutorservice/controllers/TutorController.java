@@ -1,6 +1,5 @@
 package com.example.tutorservice.controllers;
-
-import com.example.tutorservice.entities.DTOs.TutorDTO;
+import com.example.commonsmodule.DTOs.TutorDTO;
 import com.example.tutorservice.services.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

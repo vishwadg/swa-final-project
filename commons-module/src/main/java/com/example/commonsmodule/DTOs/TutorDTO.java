@@ -1,4 +1,4 @@
-package com.example.tutorservice.entities.DTOs;
+package com.example.commonsmodule.DTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
