@@ -40,6 +40,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Value("${spring.kafka.custom.student-detail-after-reservation-email-topic}")
     private String studentDetailReservationTopic;
+    @Value("${spring.kafka.custom.reservation-approved-email-topic}")
+    private String reservationApprovedEmailTopic;
     private final KafkaTemplate<String, UserDTO> kafkaTemplate;
 
     @Override
@@ -72,6 +74,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = userRepository.findUserById(id);
         user.setPassword(null);
         kafkaTemplate.send(studentDetailReservationTopic, modelMapper.map(user, UserDTO.class));
+        return modelMapper.map(user, UserDTO.class);
+    }
+
+    @Override
+    public UserDTO sendReservationApprovedEmailToTutor(Long tutorUserId) {
+        User user = userRepository.findUserById(tutorUserId);
+        user.setPassword(null);
+        kafkaTemplate.send(reservationApprovedEmailTopic, modelMapper.map(user, UserDTO.class));
         return modelMapper.map(user, UserDTO.class);
     }
 }

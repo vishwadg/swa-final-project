@@ -18,4 +18,3 @@ public class ReservationDTO {
     private LocalDate reservationDate;
     private boolean reservationStatus;
 }
-
