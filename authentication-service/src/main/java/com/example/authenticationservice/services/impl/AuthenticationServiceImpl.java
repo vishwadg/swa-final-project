@@ -1,7 +1,9 @@
 package com.example.authenticationservice.services.impl;
 
 import com.example.authenticationservice.entities.DTOs.TokenResponse;
-import com.example.authenticationservice.entities.DTOs.UserDTO;
+import com.example.commonsmodule.DTOs.StudentDTO;
+import com.example.commonsmodule.DTOs.TutorDTO;
+import com.example.commonsmodule.DTOs.UserDTO;
 import com.example.authenticationservice.entities.DTOs.UserLoginDTO;
 import com.example.authenticationservice.entities.User;
 import com.example.authenticationservice.repositories.UserRepository;
@@ -11,6 +13,8 @@ import com.example.commonsmodule.security.enums.UserRole;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,6 +32,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;;
     private final ModelMapper modelMapper = new ModelMapper();
+
+    @Value("${spring.kafka.custom.tutor-signup-topic}")
+    private String tutorSignupTopic;
+    @Value("${spring.kafka.custom.student-signup-topic}")
+    private String studentSignupTopic;
+    private final KafkaTemplate<String, UserDTO> kafkaTemplate;
+
     @Override
     public TokenResponse login(UserLoginDTO payload) throws JsonProcessingException {
         Authentication authentication = authenticationManager
@@ -42,9 +53,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public UserDTO register(UserDTO payload) {
         User user = modelMapper.map(payload, User.class);
-        user.setRoles(Set.of(UserRole.ROLE_TUTOR));
+        user.setRoles(Set.of(payload.getRole()));
         User savedUser = userRepository.save(user);
         user.setPassword(null);
+        payload.setPassword(null);
+        if(payload.getRole().equals(UserRole.ROLE_TUTOR))
+            kafkaTemplate.send(tutorSignupTopic, payload);
+        else
+            kafkaTemplate.send(studentSignupTopic, payload);
         return modelMapper.map(savedUser, UserDTO.class);
     }
 }

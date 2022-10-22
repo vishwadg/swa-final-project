@@ -1,7 +1,7 @@
 package com.example.authenticationservice.services;
 
 import com.example.authenticationservice.entities.DTOs.TokenResponse;
-import com.example.authenticationservice.entities.DTOs.UserDTO;
+import com.example.commonsmodule.DTOs.UserDTO;
 import com.example.authenticationservice.entities.DTOs.UserLoginDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 

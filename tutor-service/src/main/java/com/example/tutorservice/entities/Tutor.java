@@ -21,4 +21,5 @@ public class Tutor {
     private String address;
     private String expertise;
     private String shortInfo;
+    private Long userId;
 }

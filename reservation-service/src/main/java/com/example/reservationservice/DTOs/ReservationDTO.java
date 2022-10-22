@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ReservationDTO {
     private String reservationId;
-    private String tutorId;
+    private Long tutorUserId;;
     private String tutorRequirementId;
     private LocalDate reservationDate;
     private boolean reservationStatus;
