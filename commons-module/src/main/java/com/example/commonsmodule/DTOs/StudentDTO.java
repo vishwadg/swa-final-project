@@ -1,4 +1,4 @@
-package com.example.studentservice.entities.DTOs;
+package com.example.commonsmodule.DTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,4 +14,5 @@ public class StudentDTO {
     private String address;
     private String phone;
     private String description;
+    private Long userId;
 }

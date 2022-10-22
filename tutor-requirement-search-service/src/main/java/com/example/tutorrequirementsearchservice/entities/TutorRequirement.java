@@ -11,4 +11,5 @@ public class TutorRequirement {
     private String id;
     private String title;
     private String description;
+    private Long userId;
 }

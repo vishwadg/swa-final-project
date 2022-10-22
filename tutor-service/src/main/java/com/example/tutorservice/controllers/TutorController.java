@@ -1,4 +1,5 @@
 package com.example.tutorservice.controllers;
+
 import com.example.commonsmodule.DTOs.TutorDTO;
 import com.example.tutorservice.services.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,10 @@ public class TutorController {
     @Autowired
     TutorService tutorService;
 
-    @PostMapping
-    ResponseEntity<?> signupTutor(@RequestBody TutorDTO tutorDTO) {
-        return new ResponseEntity<>(tutorService.signupTutor(tutorDTO), HttpStatus.OK);
-    }
+//    @PostMapping
+//    ResponseEntity<?> signupTutor(@RequestBody TutorDTO tutorDTO) {
+//        return new ResponseEntity<>(tutorService.signupTutor(tutorDTO), HttpStatus.OK);
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getTutorById(@PathVariable String id) {

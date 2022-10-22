@@ -1,6 +1,6 @@
 package com.example.studentservice.controllers;
 
-import com.example.studentservice.entities.DTOs.StudentDTO;
+import com.example.commonsmodule.DTOs.StudentDTO;
 import com.example.studentservice.services.StudentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,11 +16,11 @@ public class StudentController {
 
     private final StudentService studentService;
 
-    @PostMapping
-    public StudentDTO save(@RequestBody StudentDTO payload){
-        log.info("Creating Student");
-        return studentService.save(payload);
-    }
+//    @PostMapping
+//    public StudentDTO save(@RequestBody StudentDTO payload){
+//        log.info("Creating Student");
+//        return studentService.save(payload);
+//    }
 
     @GetMapping
     public List<StudentDTO> findAll(){

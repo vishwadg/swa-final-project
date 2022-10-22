@@ -17,8 +17,8 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class TutorServiceImpl implements TutorService {
-    @Value("${spring.kafka.custom.tutor-topic}")
-    private String tutorTopic;
+    @Value("${spring.kafka.custom.tutor-signup-email-topic}")
+    private String tutorSignupEmailTopic;
 
     @Autowired
     private TutorRepository tutorRepository;
@@ -31,12 +31,12 @@ public class TutorServiceImpl implements TutorService {
 
     @Override
     public TutorDTO signupTutor(TutorDTO tutorDTO) {
-        log.info("Tutor sign up process started ....");
         Tutor tutor = modelMapper.map(tutorDTO, Tutor.class);
         Tutor tutorRepo = tutorRepository.save(tutor);
-        tutorDTO.setTutorId(tutorRepo.getTutorId());
-        kafkaTutorTemplate.send(tutorTopic, tutorDTO);
         log.info("Success: Tutor data saved");
+        tutorDTO.setTutorId(tutorRepo.getTutorId());
+        kafkaTutorTemplate.send(tutorSignupEmailTopic, tutorDTO);
+        log.info("Tutor Signup email request sent on kafka queue. {}", tutorDTO);
         return tutorDTO;
     }
 
