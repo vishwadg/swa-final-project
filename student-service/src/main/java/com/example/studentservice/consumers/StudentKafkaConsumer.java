@@ -21,14 +21,9 @@ public class StudentKafkaConsumer {
     public void consumeStudentSignupDTO(UserDTO userDTO){
         log.info("Received Student SignUp {}", userDTO);
         StudentDTO studentDTO = new StudentDTO();
-        studentDTO.setName(userDTO.getName());
-        studentDTO.setAddress(userDTO.getAddress());
-        studentDTO.setPhone(userDTO.getPhone());
         studentDTO.setDescription(userDTO.getDescription());
-        studentDTO.setPhone(userDTO.getPhone());
         studentDTO.setUserId(userDTO.getId());
         studentDTO = studentService.save(studentDTO);
         log.info("Successfully Saved Student {}", studentDTO);
     }
-
 }

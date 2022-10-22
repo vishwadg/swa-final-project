@@ -11,9 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TutorDTO {
     private String tutorId;
-    private String name;
-    private String email;
-    private String address;
     private String expertise;
     private String shortInfo;
     private Long userId;
