@@ -1,4 +1,4 @@
-package com.tutor.notificationservice.dto;
+package com.example.commonsmodule.DTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

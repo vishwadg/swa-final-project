@@ -1,19 +1,62 @@
-#spring:
-#  kafka:
-#    producer:
-#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-#      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
-##    producer:
-##      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-##      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-#    consumer:
-#    group-id: messaging_api
-#    auto-offset-reset: earliest
-#    key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
-#    value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
-#    properties:
-#      spring.json.trusted.packages: '*'
-#      spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
-#      spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
-#  listener:
-#    missing-topics-fatal: false
+server:
+  port: ${SERVER_PORT:8081}
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+spring:
+  application:
+    name: ${APPLICATION_NAME:notification-service}
+
+  kafka:
+    consumer:
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:services-group}
+
+    custom:
+      enable-listeners: ${KAFKA_ENABLE_LISTENERS:true}
+#      notification-service-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-service-events}
+      tutor-topic: ${KAFKA_TUTOR_TOPIC:tutor-events}
+
+  sleuth:
+    enabled: ${SLEUTH_ENABLED:true}
+    sampler:
+      probability: 1
+  zipkin:
+    enabled: ${ZIPKIN_ENABLED:false}
+    base-url: ${ZIPKIN_URL:http://localhost:9411/}
+
+#Email Configuration
+  spring:
+    mail:
+      host : smtp.gmail.com
+      port : 587
+      protocol: smtp
+      default-encoding: UTF-8
+      username: verapmiu2022@gmail.com
+      password: pezlsezajkbtejwn
+      properties:
+          mail:
+            smtp:
+               starttls:
+                 enable: true
+                 starttls:
+                   required: true
+                 auth: true
+#    spring.mail.host = smtp.gmail.com
+#    spring.mail.port = 587
+#    spring.mail.protocol=smtp
+#    spring.mail.default-encoding=UTF-8
+#    spring.mail.username=verapmiu2022@gmail.com
+#    spring.mail.password=pezlsezajkbtejwn
+#    spring.mail.properties.mail.smtp.starttls.enable=true
+#    spring.mail.properties.mail.smtp.starttls.required=true
+#    spring.mail.properties.mail.smtp.auth=true

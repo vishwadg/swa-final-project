@@ -1,20 +1,20 @@
-package com.tutor.notificationservice.service;
+package com.tutor.notificationservice.service.impl;
 
-import com.tutor.notificationservice.emailconfiguration.TutorEmailConfiguration;
+import com.tutor.notificationservice.configs.EmailConfig;
 import com.tutor.notificationservice.entity.Response;
 import com.tutor.notificationservice.entity.TutorEmail;
+import com.tutor.notificationservice.service.TutorEmailNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class TutorEmailNotificationImpl implements TutorEmailNotificationService {
 
-     @Autowired
-    private TutorEmailConfiguration tutorEmailConfiguration;
+    @Autowired
+    private EmailConfig emailConfig;
+
     @Autowired
     private JavaMailSender javaMailSender;
 
@@ -26,7 +26,7 @@ public class TutorEmailNotificationImpl implements TutorEmailNotificationService
             message.setTo(email.getTo());
             message.setSubject(email.getSubject());
             message.setText(email.getText());
-            tutorEmailConfiguration.getJavaMailSender().send(message);
+            emailConfig.getJavaMailSender().send(message);
             response.setCode(0);
             response.setMessage("Email sent Ok");
         } catch (Exception e) {
