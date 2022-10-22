@@ -24,7 +24,10 @@ spring:
     custom:
       enable-listeners: ${KAFKA_ENABLE_LISTENERS:true}
 #      notification-service-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-service-events}
-      tutor-topic: ${KAFKA_TUTOR_TOPIC:tutor-events}
+      tutor-signup-topic: ${KAFKA_TUTOR_SIGNUP_TOPIC:tutor-signup-events}
+      student-signup-topic: ${KAFKA_STUDENT_SIGNUP_TOPIC:student-signup-events}
+      student-detail-after-reservation-email-topic: ${KAFKA_STUDENT_DETAIL_RESERVATION_TOPIC:student-detail-after-reservation-email-events}
+      reservation-approved-email-topic: ${KAFKA_RESERVATION_APPROVED_EMAIL_TOPIC:reservation-approved-email-events}
 
   sleuth:
     enabled: ${SLEUTH_ENABLED:true}
