@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TutorEmail {
+public class Email {
     private String to;
     private String subject;
     private String text;
