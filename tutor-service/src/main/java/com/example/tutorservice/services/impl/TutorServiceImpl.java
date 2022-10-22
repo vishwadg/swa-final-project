@@ -1,6 +1,6 @@
 package com.example.tutorservice.services.impl;
 
-import com.example.tutorservice.entities.DTOs.TutorDTO;
+import com.example.commonsmodule.DTOs.TutorDTO;
 import com.example.tutorservice.entities.Tutor;
 import com.example.tutorservice.repositories.TutorRepository;
 import com.example.tutorservice.services.TutorService;
