@@ -2,7 +2,7 @@ package com.tutor.notificationservice.service.impl;
 
 import com.tutor.notificationservice.configs.EmailConfig;
 import com.tutor.notificationservice.entity.Response;
-import com.tutor.notificationservice.entity.TutorEmail;
+import com.tutor.notificationservice.entity.Email;
 import com.tutor.notificationservice.service.TutorEmailNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -19,7 +19,7 @@ public class TutorEmailNotificationImpl implements TutorEmailNotificationService
     private JavaMailSender javaMailSender;
 
     @Override
-    public Response sendEmail(TutorEmail email) {
+    public Response sendEmail(Email email) {
         Response response = new Response();
         try {
             SimpleMailMessage message = new SimpleMailMessage();

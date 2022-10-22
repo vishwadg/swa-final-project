@@ -16,6 +16,7 @@ public class Reservation {
     @Id
     private String reservationId;
     private Long tutorUserId;
+    private Long studentUserId;
     private String tutorRequirementId;
     private LocalDate reservationDate;
     private boolean reservationStatus;
