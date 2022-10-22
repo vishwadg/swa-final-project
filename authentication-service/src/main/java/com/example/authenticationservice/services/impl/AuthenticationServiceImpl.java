@@ -37,6 +37,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private String tutorSignupTopic;
     @Value("${spring.kafka.custom.student-signup-topic}")
     private String studentSignupTopic;
+
+    @Value("${spring.kafka.custom.student-detail-after-reservation-email-topic}")
+    private String studentDetailReservationTopic;
     private final KafkaTemplate<String, UserDTO> kafkaTemplate;
 
     @Override
@@ -62,5 +65,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         else
             kafkaTemplate.send(studentSignupTopic, payload);
         return modelMapper.map(savedUser, UserDTO.class);
+    }
+
+    @Override
+    public UserDTO getUserByUserId(Long id) {
+        User user = userRepository.findUserById(id);
+        user.setPassword(null);
+        kafkaTemplate.send(studentDetailReservationTopic, modelMapper.map(user, UserDTO.class));
+        return modelMapper.map(user, UserDTO.class);
     }
 }

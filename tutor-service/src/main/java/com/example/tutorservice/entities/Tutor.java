@@ -15,10 +15,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Tutor {
     @Id
     private String tutorId;
-    private String name;
-    private String email;
-    private String phone;
-    private String address;
     private String expertise;
     private String shortInfo;
     private Long userId;
