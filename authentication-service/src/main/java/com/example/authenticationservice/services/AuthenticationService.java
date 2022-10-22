@@ -11,4 +11,6 @@ public interface AuthenticationService {
     UserDTO register(UserDTO payload);
 
     UserDTO getUserByUserId(Long id);
+
+    UserDTO sendReservationApprovedEmailToTutor(Long tutorUserId);
 }

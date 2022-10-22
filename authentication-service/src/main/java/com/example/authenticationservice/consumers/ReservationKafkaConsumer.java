@@ -22,4 +22,11 @@ public class ReservationKafkaConsumer {
         UserDTO userDTO = authenticationService.getUserByUserId(reservationDTO.getTutorUserId());
         log.info("Successfully fetched UserDTO {}", userDTO);
     }
+
+    @KafkaListener(topics = {"${spring.kafka.custom.reservation-approved-topic}"}, containerFactory = "kafkaListenerJsonFactory",
+            groupId = "${spring.kafka.consumer.group-id}", autoStartup = "${spring.kafka.custom.enable-listeners}")
+    public void consumeReservationApprovedTopic(ReservationDTO reservationDTO) {
+        log.info("Received ReservationDTO which was approved {}", reservationDTO);
+        UserDTO userDTO = authenticationService.sendReservationApprovedEmailToTutor(reservationDTO.getTutorUserId());
+    }
 }

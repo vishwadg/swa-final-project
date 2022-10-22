@@ -1,6 +1,7 @@
 package com.example.tutorrequirementservice.services;
 
 import com.example.commonsmodule.DTOs.TutorRequirementDTO;
+import com.example.commonsmodule.security.CommonSecurityUtils;
 import com.example.tutorrequirementservice.entity.TutorRequirement;
 import com.example.tutorrequirementservice.repositories.TutorRequirementRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class TutorRequirementService {
 
 
     public TutorRequirementDTO save(TutorRequirementDTO payload) {
+        payload.setStudentUserId(CommonSecurityUtils.getCurrentUserId().get());
         TutorRequirement tutorRequirement = modelMapper.map(payload, TutorRequirement.class);
         tutorRequirement = tutorRequirementRepository.save(tutorRequirement);
         log.info("Tutor Requirements created Successfully!");
@@ -36,6 +38,13 @@ public class TutorRequirementService {
 
         kafkaTutorRequirementTemplate.send(tutorRequirementTopic, tutorRequirementDTO);
         return tutorRequirementDTO;
+    }
+
+    public List<TutorRequirementDTO> findAllByStudentUserId() {
+        Long userId = CommonSecurityUtils.getCurrentUserId().get();
+        return tutorRequirementRepository.findAllByStudentUserId(userId)
+                .stream().map(tr -> modelMapper.map(tr, TutorRequirementDTO.class))
+                .collect(Collectors.toList());
     }
 
     public List<TutorRequirementDTO> findAll() {

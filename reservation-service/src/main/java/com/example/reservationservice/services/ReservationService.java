@@ -9,7 +9,9 @@ import java.util.List;
 public interface ReservationService {
     ReservationDTO save(ReservationDTO reservationDTO);
 
-    List<ReservationDTO> findAll();
+    List<ReservationDTO> findAllByTutorRequirementId(String tutorRequirement);
 
     ReservationDTO findById(String id);
+
+    ReservationDTO updateReservationStatus(ReservationDTO reservationDTO);
 }
