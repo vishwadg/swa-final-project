@@ -9,8 +9,8 @@ spring:
       group-id: ${KAFKA_CONSUMER_GROUP_ID:services-group}
     custom:
       tutor-topic: ${KAFKA_TUTOR_TOPIC:tutor-events}
-
       reservation-topic: ${KAFKA_RESERVATION_TOPIC:reservation-events}
+      reservation-approved-topic: ${KAFKA_RESERVATION_APPROVED_TOPIC:reservation-approved-events}
 
   #      notification-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-events}
 
