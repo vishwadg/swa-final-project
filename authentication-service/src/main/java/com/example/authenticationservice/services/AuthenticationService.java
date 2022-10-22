@@ -9,4 +9,6 @@ public interface AuthenticationService {
     TokenResponse login(UserLoginDTO payload) throws JsonProcessingException;
 
     UserDTO register(UserDTO payload);
+
+    UserDTO getUserByUserId(Long id);
 }
