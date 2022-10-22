@@ -11,6 +11,6 @@ import lombok.ToString;
 @ToString
 public class NotificationDto {
     private String to;
-    private  String  subject;
+    private String subject;
     private String text;
 }
