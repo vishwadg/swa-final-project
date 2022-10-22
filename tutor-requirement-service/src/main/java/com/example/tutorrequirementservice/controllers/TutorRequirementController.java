@@ -21,7 +21,7 @@ public class TutorRequirementController {
         return tutorRequirementService.save(payload);
     }
 
-    @GetMapping
+    @GetMapping("/students")
     @PreAuthorize("hasRole('ROLE_STUDENT')")
     public List<TutorRequirementDTO> findAllByStudentUserId(){
         return tutorRequirementService.findAllByStudentUserId();
