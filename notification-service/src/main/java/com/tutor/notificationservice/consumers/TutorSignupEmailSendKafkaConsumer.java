@@ -20,9 +20,9 @@ public class TutorSignupEmailSendKafkaConsumer {
         log.info("Received TutorDTO {}", userDTO);
 
         Email tutorEmail = new Email();
-        tutorEmail.setTo(userDTO.getEmail());
+        tutorEmail.setTo(userDTO.getUsername());
         tutorEmail.setSubject("Welcome to Tutor Finder");
-        tutorEmail.setText("Hi " + userDTO.getName() + "\n\n" + "You have successfully registered to the Tutor Finder");
+        tutorEmail.setText("Hi " + userDTO.getFullName() + "\n\n" + "You have successfully registered to the Tutor Finder");
 
         tutorEmailNotificationService.sendEmail(tutorEmail);
         log.info("Successfully sent email to Tutor {}", tutorEmail);

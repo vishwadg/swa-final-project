@@ -20,9 +20,9 @@ public class SendEmailToTutorAfterReservationApproveKafkaConsumer {
         log.info("Received TutorDTO {}", userDTO);
 
         Email tutorEmail = new Email();
-        tutorEmail.setTo(userDTO.getEmail());
+        tutorEmail.setTo(userDTO.getUsername());
         tutorEmail.setSubject("Tutor Finder: Reservation Approved");
-        tutorEmail.setText("Hi " + userDTO.getName() + "\n\n" + "Your reservation has been approved.");
+        tutorEmail.setText("Hi " + userDTO.getFullName() + "\n\n" + "Your reservation has been approved.");
 
         tutorEmailNotificationService.sendEmail(tutorEmail);
         log.info("Successfully sent email to Tutor {}", tutorEmail);

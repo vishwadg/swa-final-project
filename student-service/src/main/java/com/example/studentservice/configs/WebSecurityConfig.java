@@ -1,5 +1,7 @@
 package com.example.studentservice.configs;
 
+import com.example.commonsmodule.security.JwtTokenFilter;
+import com.example.commonsmodule.security.JwtTokenProvider;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +26,8 @@ public class WebSecurityConfig {
 
     @Value("${app.jwt.token.secret-key}")
     private String secretKey;
+    @Value("${app.jwt.token.expiry}")
+    private Long expiry;
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -31,20 +35,18 @@ public class WebSecurityConfig {
         return http.cors(Customizer.withDefaults())
                 .csrf().disable().httpBasic().and()
                 .authorizeRequests(ar -> ar
-                        .antMatchers("/", "/actuator/**").permitAll()
-                        .antMatchers("/students").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-//                .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
-//    public JwtTokenFilter jwtTokenFilter() {
-//        JwtTokenFilter jwtTokenFilter = new JwtTokenFilter(new JwtTokenParser(secretKey));
-//        return jwtTokenFilter;
-//    }
+    public JwtTokenFilter jwtTokenFilter() {
+        JwtTokenFilter jwtTokenFilter = new JwtTokenFilter(new JwtTokenProvider(secretKey, expiry));
+        return jwtTokenFilter;
+    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
