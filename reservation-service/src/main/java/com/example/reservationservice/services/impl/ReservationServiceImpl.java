@@ -1,13 +1,13 @@
 package com.example.reservationservice.services.impl;
 
-import com.example.reservationservice.DTOs.ReservationDTO;
+import com.example.commonsmodule.DTOs.ReservationDTO;
+import com.example.commonsmodule.security.CommonSecurityUtils;
 import com.example.reservationservice.entities.Reservation;
 import com.example.reservationservice.repositories.ReservationRepository;
 import com.example.reservationservice.services.ReservationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -32,10 +32,12 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationDTO save(ReservationDTO reservationDTO) {
+        reservationDTO.setTutorUserId(CommonSecurityUtils.getCurrentUserId().get());
         log.info("Reservation process started...");
         Reservation reservation = modelMapper.map(reservationDTO, Reservation.class);
         Reservation reservationRepo = reservationRepository.save(reservation);
         reservationDTO.setReservationId(reservationRepo.getReservationId());
+        reservationDTO.setTutorRequirementId(reservationRepo.getTutorRequirementId());
         kafkaReservationTemplate.send(reservationTopic, reservationDTO);
         log.info("Success: Reservation data saved");
         return reservationDTO;
@@ -43,7 +45,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<ReservationDTO> findAllByTutorRequirementId(String tutorRequirement) {
-        List<Reservation> reservationList = reservationRepository.findAllByTutorRequirementId(tutorRequirement);
+        List<Reservation> reservationList = reservationRepository.findReservationsByTutorRequirementId(tutorRequirement);
         if (reservationList.isEmpty()) {
             log.info("Failure: Reservations are not found in the system");
             throw new RuntimeException("Sorry, reservations are not found in the system");

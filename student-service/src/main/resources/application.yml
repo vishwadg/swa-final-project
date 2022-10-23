@@ -35,6 +35,7 @@ app:
   jwt:
     token:
       secret-key: ${JWT_SECRET_KEY:secret}
+      expiry: 100000
 
 management:
   endpoint:

@@ -21,9 +21,9 @@ public class SendEmailToStudentAfterReservationKafkaConsumer {
         log.info("Received UserDTO {}", userDTO);
 
         Email tutorEmail = new Email();
-        tutorEmail.setTo(userDTO.getEmail());
+        tutorEmail.setTo(userDTO.getUsername());
         tutorEmail.setSubject("Tutor Finder: Tutor Requirement Reservation");
-        tutorEmail.setText("Hi " + userDTO.getName() + "\n\n" + "Your Tutor requirement has been reserved.");
+        tutorEmail.setText("Hi " + userDTO.getUsername() + "\n\n" + "Your Tutor requirement has been reserved.");
 
         tutorEmailNotificationService.sendEmail(tutorEmail);
         log.info("Successfully sent email to Tutor {}", tutorEmail);

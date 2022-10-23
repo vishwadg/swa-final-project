@@ -17,4 +17,5 @@ public class ReservationDTO {
     private String tutorRequirementId;
     private LocalDate reservationDate;
     private boolean reservationStatus;
+    private Long studentUserId;
 }

@@ -1,6 +1,6 @@
 package com.example.reservationservice.controllers;
 
-import com.example.reservationservice.DTOs.ReservationDTO;
+import com.example.commonsmodule.DTOs.ReservationDTO;
 import com.example.reservationservice.services.ReservationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +34,9 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping
+
     @PreAuthorize("hasRole('ROLE_STUDENT')")
-    @PostMapping("/${tutorRequirementId}/tutorRequirement")
+    @GetMapping("/tutorRequirementId/{tutorRequirement}")
     public ResponseEntity<?> findAllReservationByTutorRequirementId(@PathVariable String tutorRequirement) {
         return new ResponseEntity<>(reservationService.findAllByTutorRequirementId(tutorRequirement), HttpStatus.OK);
     }

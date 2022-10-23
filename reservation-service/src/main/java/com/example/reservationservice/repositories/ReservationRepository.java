@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ReservationRepository extends MongoRepository<Reservation, String> {
-    List<Reservation> findAllByTutorRequirementId(String tutorRequirementId);
+    List<Reservation> findReservationsByTutorRequirementId(String tutorRequirementId);
 }

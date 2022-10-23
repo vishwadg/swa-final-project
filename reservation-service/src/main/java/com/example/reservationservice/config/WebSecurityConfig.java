@@ -32,12 +32,11 @@ public class WebSecurityConfig {
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.cors(Customizer.withDefaults())
                 .csrf().disable().httpBasic().and()
-//                .
-//                authorizeRequests(r ->
-//                        r.antMatchers("/", "/actuators/**").permitAll()
-//                                .anyRequest().authenticated()
-//
-//                )
+                .authorizeRequests(r ->
+                        r.antMatchers("/", "/actuators/**").permitAll()
+                        .anyRequest().authenticated()
+
+                )
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
