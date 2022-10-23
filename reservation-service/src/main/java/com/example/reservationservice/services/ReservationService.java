@@ -1,7 +1,8 @@
 package com.example.reservationservice.services;
 
-import com.example.reservationservice.DTOs.ReservationDTO;
 
+
+import com.example.commonsmodule.DTOs.ReservationDTO;
 
 import java.util.List;
 

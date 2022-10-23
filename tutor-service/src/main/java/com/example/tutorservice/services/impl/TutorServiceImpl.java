@@ -1,6 +1,7 @@
 package com.example.tutorservice.services.impl;
 
 import com.example.commonsmodule.DTOs.TutorDTO;
+import com.example.commonsmodule.security.CommonSecurityUtils;
 import com.example.tutorservice.entities.Tutor;
 import com.example.tutorservice.repositories.TutorRepository;
 import com.example.tutorservice.services.TutorService;
@@ -58,7 +59,7 @@ public class TutorServiceImpl implements TutorService {
     @Override
     public List<TutorDTO> findAll() {
         List<Tutor> tutorList = tutorRepository.findAll();
-
+        Long userid = CommonSecurityUtils.getCurrentUserDetails().getId();
         if (tutorList.isEmpty()) {
             log.info("Failure: Tutors are not found in the system");
             throw new RuntimeException("Sorry, tutors are not found in the system");
