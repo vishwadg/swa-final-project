@@ -19,7 +19,7 @@ public class ReservationKafkaConsumer {
             groupId = "${spring.kafka.consumer.group-id}", autoStartup = "${spring.kafka.custom.enable-listeners}")
     public void consumeReservationDTO(ReservationDTO reservationDTO) {
         log.info("Received ReservationDTO {}", reservationDTO);
-        UserDTO userDTO = authenticationService.getUserByUserId(reservationDTO.getTutorUserId());
+        UserDTO userDTO = authenticationService.getUserByUserId(reservationDTO.getStudentUserId());
         log.info("Successfully fetched UserDTO {}", userDTO);
     }
 
@@ -28,5 +28,6 @@ public class ReservationKafkaConsumer {
     public void consumeReservationApprovedTopic(ReservationDTO reservationDTO) {
         log.info("Received ReservationDTO which was approved {}", reservationDTO);
         UserDTO userDTO = authenticationService.sendReservationApprovedEmailToTutor(reservationDTO.getTutorUserId());
+        log.info("Successfully fetched UserDTO {}", userDTO);
     }
 }
