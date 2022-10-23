@@ -1,11 +1,8 @@
 package com.tutor.notificationservice.service;
 
 import com.tutor.notificationservice.entity.Response;
-import com.tutor.notificationservice.entity.TutorEmail;
-
-import java.util.Optional;
+import com.tutor.notificationservice.entity.Email;
 
 public interface TutorEmailNotificationService {
-    Response sendEmail(TutorEmail email);
-    Optional<TutorEmail> findAllById(Long id);
+    Response sendEmail(Email email);
 }

@@ -9,8 +9,8 @@ spring:
       group-id: ${KAFKA_CONSUMER_GROUP_ID:services-group}
     custom:
       tutor-topic: ${KAFKA_TUTOR_TOPIC:tutor-events}
-
       reservation-topic: ${KAFKA_RESERVATION_TOPIC:reservation-events}
+      reservation-approved-topic: ${KAFKA_RESERVATION_APPROVED_TOPIC:reservation-approved-events}
 
   #      notification-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-events}
 
@@ -40,7 +40,7 @@ spring:
 app:
   jwt:
     token:
-      secret-key: ${JWT_SECRET_KEY:tutor-service-jwt-secret-key}
+      secret-key: ${JWT_SECRET_KEY:secret}
       expiry: 100000
 
 management:

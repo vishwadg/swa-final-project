@@ -5,10 +5,15 @@ spring:
   kafka:
     producer:
       bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:group}
 
     custom:
-      tutor-topic: ${KAFKA_TUTOR_TOPIC:tutor-events}
-#      notification-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-events}
+      tutor-signup-topic: ${KAFKA_TUTOR_SIGNUP_TOPIC:tutor-signup-events}
+      tutor-signup-email-topic: ${KAFKA_TUTOR_SIGNUP_EMAIL_TOPIC:student-signup-email-events}
+      enable-listeners: ${KAFKA_ENABLE_LISTENERS:true}
+  #      notification-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-events}
 
 
   application:
@@ -36,7 +41,7 @@ spring:
 app:
   jwt:
     token:
-      secret-key: ${JWT_SECRET_KEY:tutor-service-jwt-secret-key}
+      secret-key: ${JWT_SECRET_KEY:secret}
       expiry: 100000
 
 

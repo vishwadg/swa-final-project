@@ -1,0 +1,4 @@
+app:
+  jwt:
+    secret: secret
+    expiry: 100000
