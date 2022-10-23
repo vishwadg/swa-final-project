@@ -50,7 +50,7 @@ public class ReservationServiceImpl implements ReservationService {
         }
         List<ReservationDTO> reservationDTOList = reservationList.stream().map(
                 reservation -> modelMapper.map(reservation, ReservationDTO.class)
-        ).toList();
+            ).toList();
 
         log.info("Success: Reservation list saved");
         return reservationDTOList;
