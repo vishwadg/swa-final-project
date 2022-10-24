@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: authentication-service
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  selector:
+    app: auth-app
+  ports:
+    - port: 80
+      #      nodePort: 30070 # exposing to local, to access this service
+      targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentication-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authentication-service
+  template:
+    metadata:
+      labels:
+        app: authentication-service
+    spec:
+      containers:
+        - name: auth-app
+          image: vishwaghimire/authentication-service
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            # Database: MySQL
+            - name: MYSQL_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: core-configs
+                  key: mysql_url
+            - name: MYSQL_DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: core-configs
+                  key: mysql_authDBName
+            - name: MYSQL_USERNAME
+              value: root
+            - name: MYSQL_PASSWORD
+              value: root
+
+            # Tracing: Zipkin & Sleuth
+            - name: ZIPKIN_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: core-configs
+                  key: zipkin_url
+            - name: ZIPKIN_ENABLED
+              value: 'true'
+
+            # App Specific
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: core-secrets
+                  key: jwt-secret-key

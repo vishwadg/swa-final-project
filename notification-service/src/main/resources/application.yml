@@ -1,4 +1,4 @@
-s8070erver:
+server:
   port: ${SERVER_PORT:8086}
 
 management:
