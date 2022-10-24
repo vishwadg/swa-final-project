@@ -1,66 +1,66 @@
 version: '3.9'
 
 services:
-  auth-service:
-    container_name: authentication-service
-    image: vishwaghimire/authentication-service
-    ports:
-      - 8080:8080
-    restart: always
-    build:
-      context: ./authentication-service
-      dockerfile: Dockerfile
+#  auth-service:
+#    container_name: authentication-service
+#    image: vishwaghimire/authentication-service
+#    ports:
+#      - 8080:8080
+#    restart: always
+#    build:
+#      context: ./authentication-service
+#      dockerfile: Dockerfile
+#
+#  notification-service:
+#    container_name: notification-service
+#    image: vishwaghimire/notification-service
+#    ports:
+#      - 8086:8086
+#    restart: always
+#    build:
+#      context: ./notification-service
+#      dockerfile: Dockerfile
+#
+#  reservation-service:
+#    container_name: reservation-service
+#    image: vishwaghimire/reservation-service
+#    ports:
+#      - 8085:8085
+#    restart: always
+#    build:
+#      context: ./reservation-service
+#      dockerfile: Dockerfile
+#
+#  student-service:
+#    container_name: student-service
+#    image: vishwaghimire/student-service
+#    ports:
+#      - 8084:8084
+#    restart: always
+#    build:
+#      context: ./student-service
+#      dockerfile: Dockerfile
 
-  notification-service:
-    container_name: notification-service
-    image: vishwaghimire/notification-service
-    ports:
-      - 8086:8086
-    restart: always
-    build:
-      context: ./notification-service
-      dockerfile: Dockerfile
-
-  reservation-service:
-    container_name: reservation-service
-    image: vishwaghimire/reservation-service
-    ports:
-      - 8085:8085
-    restart: always
-    build:
-      context: ./reservation-service
-      dockerfile: Dockerfile
-
-  student-service:
-    container_name: student-service
-    image: vishwaghimire/student-service
-    ports:
-      - 8084:8084
-    restart: always
-    build:
-      context: ./student-service
-      dockerfile: Dockerfile
-
-  tutor-requirement-search-service:
-    container_name: tutor-requirement-search-service
-    image: vishwaghimire/tutor-requirement-search-service
-    ports:
-      - 8081:8081
-    restart: always
-    build:
-      context: ./tutor-requirement-search-service
-      dockerfile: Dockerfile
-
-  tutor-requirement-service:
-    container_name: tutor-requirement-service
-    image: vishwaghimire/tutor-requirement-service
-    ports:
-      - 8083:8083
-    restart: always
-    build:
-      context: ./tutor-requirement-service
-      dockerfile: Dockerfile
-
+#  tutor-requirement-search-service:
+#    container_name: tutor-requirement-search-service
+#    image: vishwaghimire/tutor-requirement-search-service
+#    ports:
+#      - 8081:8081
+#    restart: always
+#    build:
+#      context: ./tutor-requirement-search-service
+#      dockerfile: Dockerfile
+#
+#  tutor-requirement-service:
+#    container_name: tutor-requirement-service
+#    image: vishwaghimire/tutor-requirement-service
+#    ports:
+#      - 8083:8083
+#    restart: always
+#    build:
+#      context: ./tutor-requirement-service
+#      dockerfile: Dockerfile
+#
   tutor-service:
     container_name: tutor-service
     image: vishwaghimire/tutor-service

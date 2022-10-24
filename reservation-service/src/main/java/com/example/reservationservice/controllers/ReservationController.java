@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/reservation")
+@CrossOrigin
 public class ReservationController {
 
     @Autowired

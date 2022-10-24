@@ -1,0 +1,99 @@
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: reservation-service
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  selector:
+    app: reservation-service
+  ports:
+    - port: 80
+      #      nodePort: 30085 # expose to local
+      targetPort: 8085
+  type: ClusterIP
+---
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reservation-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reservation-service
+  template:
+    metadata:
+      labels:
+        app: reservation-service
+    spec:
+      containers:
+        - name: reservation-service
+          image: vishwaghimire/reservation-service
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8085
+          env:
+            # Broker: Kafka
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: core-configs
+                  key: kafka_BootStrapServers
+            - name: KAFKA_CONSUMER_GROUP_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: core-configs
+                  key: kafka_searchServiceGroupId
+            - name: KAFKA_TUTOR_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: core-configs
+                  key: tutor-topic
+            - name: KAFKA_RESERVATION_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: core-configs
+                  key: reservation-topic
+            - name: KAFKA_RESERVATION_APPROVED_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: core-configs
+                  key: reservation-approved-topic
+
+            # Database: MongoDB
+            - name: MONGO_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: core-configs
+                  key: mongo_url
+            - name: MONGO_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: core-configs
+                  key: mongo_applicationDBName
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: core-secrets
+                  key: mongo_user
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: core-secrets
+                  key: mongo_pass
+
+            # Tracing: Zipkin & Sleuth
+            - name: ZIPKIN_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: core-configs
+                  key: zipkin_url
+
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: core-secrets
+                  key: jwt-secret-key

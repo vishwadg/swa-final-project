@@ -7,13 +7,11 @@ import com.example.authenticationservice.entities.DTOs.UserLoginDTO;
 import com.example.authenticationservice.services.AuthenticationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin
 @RequestMapping("/users")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;

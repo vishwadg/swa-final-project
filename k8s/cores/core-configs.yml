@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: core-configs
+data:
+  # Broker: Kafka
+  kafka_BootStrapServers: kafka-0.kafka-headless.default.svc.cluster.local:9092
+  kafka_searchServiceGroupId: services-group
+  tutor-topic: tutor-events
+  application-topic: application-events
+  tutor_requirement_topic: tutor-requirement-events
+  notification-topic: notification-events
+  tutor-requirement-topic: tutor-requirement-events
+  tutor-signup-topic: tutor-signup-events
+  student-signup-topic: student-signup-events
+  reservation-topic: reservation-events
+  student-detail-after-reservation-email-topic: student-detail-after-reservation-email-events
+  reservation-approved-topic: reservation-approved-events
+  reservation-approved-email-topic: reservation-approved-email-events
+  student-signup-email-topic: student-signup-email-events
+  tutor-signup-email-topic: student-signup-email-events
+
+
+  # Caching: Redis
+  redis_host: redis-master.default.svc.cluster.local
+  redis_port: '6379'
+
+  # Tracing: Zipkin
+  zipkin_url: swa3-zipkin # 9411
+
+  # === Database ====
+  # Elastic Search
+  elastic_host: elasticsearch.default.svc.cluster.local
+  elastic_port: '9200'
+
+  # MySQL
+  mysql_url: swa-mysql.default.svc.cluster.local
+  mysql_authDBName: auth-db
+
+  # MySQL
+  mongo_url: mongo-mongodb.default.svc.cluster.local
+  mongo_candidateDBName: candidate-db
+  mongo_recruiterDBName: recruiter-db
+  mongo_applicationDBName: application-db
+
