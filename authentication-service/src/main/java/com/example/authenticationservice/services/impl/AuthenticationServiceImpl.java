@@ -62,10 +62,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User savedUser = userRepository.save(user);
         user.setPassword(null);
         payload.setPassword(null);
-        if(payload.getRole().equals(UserRole.ROLE_TUTOR))
-            kafkaTemplate.send(tutorSignupTopic, payload);
-        else
-            kafkaTemplate.send(studentSignupTopic, payload);
+
+        if(kafkaTemplate != null){
+            if(payload.getRole().equals(UserRole.ROLE_TUTOR))
+                kafkaTemplate.send(tutorSignupTopic, payload);
+            else
+                kafkaTemplate.send(studentSignupTopic, payload);
+        }
+
         return modelMapper.map(savedUser, UserDTO.class);
     }
 
