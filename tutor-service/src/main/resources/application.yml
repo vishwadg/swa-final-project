@@ -1,18 +1,19 @@
-server:
-  port: 8082
-
 spring:
+  application:
+    name: ${APPLICATION_NAME:tutor-service}
+
   kafka:
     producer:
       bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:group}
 
     custom:
-      tutor-topic: ${KAFKA_TUTOR_TOPIC:tutor-events}
-#      notification-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-events}
-
-
-  application:
-    name: ${APPLICATION_NAME:tutor-service}
+      tutor-signup-topic: ${KAFKA_TUTOR_SIGNUP_TOPIC:tutor-signup-events}
+      tutor-signup-email-topic: ${KAFKA_TUTOR_SIGNUP_EMAIL_TOPIC:student-signup-email-events}
+      enable-listeners: ${KAFKA_ENABLE_LISTENERS:true}
+  #      notification-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-events}
 
   data:
     mongodb:
@@ -28,15 +29,15 @@ spring:
   sleuth:
     sampler:
       percentage: 1
+
   zipkin:
-    compression:
-      enabled: ${ZIPKIN_ENABLED:false}
-      baseUrl: ${ZIPKIN_URL:http://localhost:9411/}
+    enabled: ${ZIPKIN_ENABLED:true}
+    baseUrl: ${ZIPKIN_URL:http://localhost:9411/}
 
 app:
   jwt:
     token:
-      secret-key: ${JWT_SECRET_KEY:tutor-service-jwt-secret-key}
+      secret-key: ${JWT_SECRET_KEY:secret}
       expiry: 100000
 
 
@@ -71,3 +72,6 @@ resilience4j:
       retryForTutors:
         maxRetryAttempts: 3
         wait-duration: 2000
+
+server:
+  port: 8082

@@ -1,9 +1,10 @@
-package com.example.reservationservice.DTOs;
+package com.example.commonsmodule.DTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 
 @Data
@@ -12,9 +13,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ReservationDTO {
     private String reservationId;
-    private String tutorId;
+    private Long tutorUserId;;
     private String tutorRequirementId;
     private LocalDate reservationDate;
     private boolean reservationStatus;
+    private Long studentUserId;
 }
-

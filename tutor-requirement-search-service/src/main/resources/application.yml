@@ -1,17 +1,3 @@
-server:
-  port: ${SERVER_PORT:8081}
-
-management:
-  endpoint:
-    metrics:
-      enabled: true
-    prometheus:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: health,info,prometheus
-
 spring:
   application:
     name: ${APPLICATION_NAME:tutor-requirement-search-service}
@@ -37,8 +23,9 @@ spring:
     enabled: ${SLEUTH_ENABLED:true}
     sampler:
       probability: 1
+
   zipkin:
-    enabled: ${ZIPKIN_ENABLED:false}
+    enabled: ${ZIPKIN_ENABLED:true}
     base-url: ${ZIPKIN_URL:http://localhost:9411/}
 
 app:
@@ -51,3 +38,18 @@ app:
   jwt:
     token:
       secret-key: ${JWT_SECRET_KEY:secret}
+      expiry: 100000
+
+server:
+  port: ${SERVER_PORT:8081}
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus

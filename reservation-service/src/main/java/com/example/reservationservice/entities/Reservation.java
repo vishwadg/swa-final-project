@@ -17,7 +17,8 @@ import java.time.LocalDate;
 public class Reservation {
     @Id
     private String reservationId;
-    private String tutorId;
+    private Long tutorUserId;
+    private Long studentUserId;
     private String tutorRequirementId;
     private LocalDate reservationDate;
     private boolean reservationStatus;

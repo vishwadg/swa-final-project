@@ -1,18 +1,18 @@
-server:
-  port: 8084
-
 spring:
+  application:
+    name: ${APPLICATION_NAME:student-service}
+
   kafka:
     producer:
       bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER:localhost:9092}
     consumer:
-      group-id: group
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:group}
 
     custom:
-      student-topic: ${KAFKA_STUDENT_TOPIC:student-event}
-
-  application:
-    name: ${APPLICATION_NAME:student-service}
+      student-signup-topic: ${KAFKA_STUDENT_SIGNUP_TOPIC:student-signup-events}
+      student-signup-email-topic: ${KAFKA_STUDENT_SIGNUP_EMAIL_TOPIC:student-signup-email-events}
+      enable-listeners: ${KAFKA_ENABLE_LISTENERS:true}
 
   data:
     mongodb:
@@ -24,14 +24,16 @@ spring:
   sleuth:
     sampler:
       percentage: 1
+
   zipkin:
-    enabled: ${ZIPKIN_ENABLED:false}
+    enabled: ${ZIPKIN_ENABLED:true}
     base-url: ${ZIPKIN_URL:http://localhost:9411/}
 
 app:
   jwt:
     token:
       secret-key: ${JWT_SECRET_KEY:secret}
+      expiry: 100000
 
 management:
   endpoint:
@@ -64,3 +66,6 @@ resilience4j:
       retryForCandidates:
         maxRetryAttempts: 3
         waitDuration: 2000
+
+server:
+  port: 8084

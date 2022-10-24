@@ -1,5 +1,7 @@
 package com.example.tutorrequirementservice.configs;
 
+import com.example.commonsmodule.security.JwtTokenFilter;
+import com.example.commonsmodule.security.JwtTokenProvider;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -23,6 +26,8 @@ public class WebSecurityConfig {
 
     @Value("${app.jwt.token.secret-key}")
     private String secretKey;
+    @Value("${app.jwt.token.expiry}")
+    private Long expiry;
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -31,19 +36,18 @@ public class WebSecurityConfig {
                 .csrf().disable().httpBasic().and()
                 .authorizeRequests(ar -> ar
                         .antMatchers("/", "/actuator/**").permitAll()
-                        .antMatchers("/tutor-requirements/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-//                .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
-//    public JwtTokenFilter jwtTokenFilter() {
-//        JwtTokenFilter jwtTokenFilter = new JwtTokenFilter(new JwtTokenParser(secretKey));
-//        return jwtTokenFilter;
-//    }
+    public JwtTokenFilter jwtTokenFilter() {
+        JwtTokenFilter jwtTokenFilter = new JwtTokenFilter(new JwtTokenProvider(secretKey, expiry));
+        return jwtTokenFilter;
+    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

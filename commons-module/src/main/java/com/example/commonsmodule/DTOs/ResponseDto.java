@@ -1,14 +1,16 @@
 package com.example.commonsmodule.DTOs;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 @AllArgsConstructor
 @NoArgsConstructor
-public class StockDTO {
-    private Long id;
-    private Long productId;
-    private Integer inStock;
+@ToString
+@Builder
+public class ResponseDto {
+    private int code;
+    private String message;
 }
