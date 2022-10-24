@@ -1,7 +1,7 @@
-server:
-  port: 8082
-
 spring:
+  application:
+    name: ${APPLICATION_NAME:tutor-service}
+
   kafka:
     producer:
       bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
@@ -14,10 +14,6 @@ spring:
       tutor-signup-email-topic: ${KAFKA_TUTOR_SIGNUP_EMAIL_TOPIC:student-signup-email-events}
       enable-listeners: ${KAFKA_ENABLE_LISTENERS:true}
   #      notification-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-events}
-
-
-  application:
-    name: ${APPLICATION_NAME:tutor-service}
 
   data:
     mongodb:
@@ -33,10 +29,10 @@ spring:
   sleuth:
     sampler:
       percentage: 1
+
   zipkin:
-    compression:
-      enabled: ${ZIPKIN_ENABLED:false}
-      baseUrl: ${ZIPKIN_URL:http://localhost:9411/}
+    enabled: ${ZIPKIN_ENABLED:true}
+    baseUrl: ${ZIPKIN_URL:http://localhost:9411/}
 
 app:
   jwt:
@@ -76,3 +72,6 @@ resilience4j:
       retryForTutors:
         maxRetryAttempts: 3
         wait-duration: 2000
+
+server:
+  port: 8082
