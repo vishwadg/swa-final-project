@@ -29,8 +29,8 @@ spring:
     port: 587
     protocol: smtp
     default-encoding: UTF-8
-    username: verapmiu2022@gmail.com
-    password: pezlsezajkbtejwn
+    username: krv.marketplace@gmail.com
+    password: awtbgtcwdcbxcjvj
     properties:
       mail:
         smtp:
