@@ -1,7 +1,7 @@
-server:
-  port: ${SERVER_PORT:8083}
-
 spring:
+  application:
+    name: ${APPLICATION_NAME:tutor-requirement-service}
+
   kafka:
     producer:
       bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:127.0.0.1:9092}
@@ -14,14 +14,19 @@ spring:
       tutor_requirement_topic: ${KAFKA_TUTOR_REQUIREMENT_TOPIC:tutor-requirement-events}
       notification-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-events}
 
-  application:
-    name: ${APPLICATION_NAME:tutor-requirement-service}
   data:
     mongodb:
       database: ${MONGO_DATABASE:tutor-requirement-db}
       port: 27017
       host: ${MONGO_URL:localhost}
       auto-index-creation: true
+  sleuth:
+    sampler:
+      percentage: 1
+
+  zipkin:
+      enabled: ${ZIPKIN_ENABLED:true}
+      base-url: ${ZIPKIN_URL:http://localhost:9411/}
 
 app:
   jwt:
@@ -39,3 +44,6 @@ management:
     web:
       exposure:
         include: health,info,prometheus
+
+server:
+  port: ${SERVER_PORT:8083}

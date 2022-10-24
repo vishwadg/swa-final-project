@@ -16,10 +16,8 @@ import org.springframework.context.annotation.PropertySource;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
 @EnableKafka
-@EnableAutoConfiguration
-@PropertySource(value = {"classpath:application.properties"})
+@Configuration
 public class KafkaConsumerConfig {
 
     @Value("${spring.kafka.consumer.bootstrap-servers}")
