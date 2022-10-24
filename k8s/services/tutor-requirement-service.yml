@@ -95,7 +95,7 @@ spec:
                   name: core-configs
                   key: zipkin_url
             - name: ZIPKIN_ENABLED
-              value: true
+              value: "true"
 
             # App Specific
             - name: JWT_SECRET_KEY
