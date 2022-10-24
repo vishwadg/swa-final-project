@@ -30,7 +30,7 @@ spec:
       containers:
         - name: tutor-service
           image: vishwaghimire/tutor-service
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082
           env:

@@ -32,7 +32,7 @@ spec:
       containers:
         - name: reservation-service
           image: vishwaghimire/reservation-service
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8085
           env:

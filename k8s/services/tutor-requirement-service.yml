@@ -30,7 +30,7 @@ spec:
       containers:
         - name: job-service
           image: vishwaghimire/tutor-requirement-service
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8084
           env:

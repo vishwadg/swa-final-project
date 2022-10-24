@@ -34,7 +34,7 @@ spec:
       containers:
         - name: tutor-requirement-search-service
           image: vishwaghimire/tutor-requirement-search-service
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
           env:

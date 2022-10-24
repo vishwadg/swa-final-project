@@ -1,3 +1,3 @@
-FROM openjdk:17
-COPY /target/tutor-service-0.0.1-SNAPSHOT.jar ./tutor-service.jar
-ENTRYPOINT ["java", "jar", "tutor-service.jar"]
+FROM openjdk:17-alpine
+COPY /target/tutor-service-0.0.1-SNAPSHOT.jar ./app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]

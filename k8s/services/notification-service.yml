@@ -30,7 +30,7 @@ spec:
       containers:
         - name: notification-service
           image: vishwaghimire/notification-service
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8086
           env:
