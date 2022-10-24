@@ -1,6 +1,6 @@
 package com.example.tutorservice.service;
 
-import com.example.tutorservice.entities.DTOs.TutorDTO;
+import com.example.commonsmodule.DTOs.TutorDTO;
 import com.example.tutorservice.entities.Tutor;
 import com.example.tutorservice.repositories.TutorRepository;
 import com.example.tutorservice.services.impl.TutorServiceImpl;
@@ -45,10 +45,6 @@ public class TutorServiceTest {
 
     private Tutor createTutor() {
         Tutor tutor = new Tutor();
-        tutor.setName("Pradip");
-        tutor.setEmail("testIt@gmail.com");
-        tutor.setPhone("984930");
-        tutor.setAddress("fairfield");
         tutor.setExpertise("python");
         tutor.setShortInfo(" pradip test is 9849 fairfield address");
         return tutor;
@@ -59,9 +55,6 @@ public class TutorServiceTest {
         newTutor.setTutorId(null);
         when(tutorRepository.save(any(Tutor.class))).thenReturn(newTutor);
         TutorDTO tutorDTO = new TutorDTO();
-        tutorDTO.setName("Pradip");
-        tutorDTO.setEmail("testIt@gmail.com");
-        tutorDTO.setAddress("fairfield");
         tutorDTO.setExpertise("python");
         tutorDTO.setShortInfo(" pradip test is 9849 fairfield address");
         Assertions.assertEquals(tutorDTO, tutorService.signupTutor(tutorDTO));
@@ -72,9 +65,6 @@ public class TutorServiceTest {
         Optional<Tutor> tutor = Optional.ofNullable(newTutor);
         when(tutorRepository.findById("")).thenReturn(tutor);
         TutorDTO tutorDTO = new TutorDTO();
-        tutorDTO.setName("Pradip");
-        tutorDTO.setEmail("testIt@gmail.com");
-        tutorDTO.setAddress("fairfield");
         tutorDTO.setExpertise("python");
         tutorDTO.setShortInfo(" pradip test is 9849 fairfield address");
         Assertions.assertEquals(tutorDTO, tutorService.findById(""));
@@ -84,9 +74,6 @@ public class TutorServiceTest {
     public void findAllTutorTest() {
         List<Tutor> tutorList = List.of(newTutor);
         TutorDTO tutorDTO = new TutorDTO();
-        tutorDTO.setName("Pradip");
-        tutorDTO.setEmail("testIt@gmail.com");
-        tutorDTO.setAddress("fairfield");
         tutorDTO.setExpertise("python");
         tutorDTO.setShortInfo(" pradip test is 9849 fairfield address");
         List<TutorDTO> tutorDTOList = List.of(tutorDTO);

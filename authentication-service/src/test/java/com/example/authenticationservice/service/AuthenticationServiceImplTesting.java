@@ -1,20 +1,32 @@
 package com.example.authenticationservice.service;
 
 
+import com.example.authenticationservice.entities.DTOs.CreatedUserRequestDTO;
+import com.example.authenticationservice.entities.DTOs.TokenResponse;
+import com.example.authenticationservice.entities.DTOs.UserLoginDTO;
+import com.example.authenticationservice.entities.User;
 import com.example.authenticationservice.repositories.UserRepository;
 import com.example.authenticationservice.services.impl.AuthenticationServiceImpl;
+import com.example.commonsmodule.DTOs.UserDTO;
 import com.example.commonsmodule.security.JwtTokenProvider;
+import com.example.commonsmodule.security.enums.UserRole;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -78,9 +90,11 @@ public class AuthenticationServiceImplTesting {
         userDTO.setId(user.getId());
         userDTO.setUsername(user.getUsername());
         userDTO.setPassword(encodePassword);
+        userDTO.setRole(UserRole.ROLE_TUTOR);
 
         when(userRepository.save(user)).thenReturn(user);
-        assertEquals(authenticationService.register(userDTO), userDTO);
+        assertEquals(authenticationService.register(userDTO).getUsername(), userDTO.getUsername());
+
     }
 
 

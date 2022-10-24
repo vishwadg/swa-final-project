@@ -1,12 +1,10 @@
 package com.example.studentservice.service;
 
 
-import com.example.studentservice.entities.DTOs.StudentDTO;
+import com.example.commonsmodule.DTOs.StudentDTO;
 import com.example.studentservice.entities.Student;
 import com.example.studentservice.repositories.StudentRepository;
 import com.example.studentservice.services.impl.StudentServiceImpl;
-import kafka.Kafka;
-import org.apache.catalina.mapper.Mapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,13 +15,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.kafka.core.KafkaTemplate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class StudentServiceImplTest {
@@ -51,10 +49,9 @@ public class StudentServiceImplTest {
 
     private Student setStudent() {
         return Student.builder()
-                .name("Pradip")
-                .email("p@gmail.com")
-                .address("fairfield,Iowa")
-                .phone("9849303934")
+
+
+
                 .description("Pradip live in fairfield and interested in SWA.")
                 .build();
 
@@ -62,10 +59,6 @@ public class StudentServiceImplTest {
 
     private StudentDTO setStudentDTO() {
         return StudentDTO.builder()
-                .name("Pradip")
-                .email("p@gmail.com")
-                .address("fairfield,Iowa")
-                .phone("9849303934")
                 .description("Pradip live in fairfield and interested in SWA.")
                 .build();
     }
@@ -81,12 +74,8 @@ public class StudentServiceImplTest {
     }
 
     @Test
-    void createStudent() {
+    void test_save() {
         Student studentToSave = Student.builder()
-                .name("Pradip")
-                .email("p@gmail.com")
-                .address("fairfield,Iowa")
-                .phone("9849303934")
                 .description("Pradip live in fairfield and interested in SWA.")
                 .build();
         when(studentRepository.save(any())).thenReturn(studentToSave);
@@ -100,19 +89,10 @@ public class StudentServiceImplTest {
 //        studentList.add(student1);
 //        return studentList;
         return Arrays.asList(Student.builder()
-                .id("1")
-                        .name("pradip")
-                        .email("pradip@gmail.com")
-                        .address("IA")
-                        .phone("9849")
-                        .description("info")
+                .id("1").description("info")
                 .build(),
                 Student.builder()
                         .id("1")
-                        .name("pradip")
-                        .email("pradip@gmail.com")
-                        .address("IA")
-                        .phone("9849")
                         .description("info")
                         .build()
                 );
