@@ -10,6 +10,16 @@ data:
   application-topic: application-events
   tutor_requirement_topic: tutor-requirement-events
   notification-topic: notification-events
+  tutor-requirement-topic: tutor-requirement-events
+  tutor-signup-topic: tutor-signup-events
+  student-signup-topic: student-signup-events
+  reservation-topic: reservation-events
+  student-detail-after-reservation-email-topic: student-detail-after-reservation-email-events
+  reservation-approved-topic: reservation-approved-events
+  reservation-approved-email-topic: reservation-approved-email-events
+  student-signup-email-topic: student-signup-email-events
+  tutor-signup-email-topic: student-signup-email-events
+
 
   # Caching: Redis
   redis_host: redis-master.default.svc.cluster.local

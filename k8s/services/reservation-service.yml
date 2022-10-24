@@ -1,55 +1,42 @@
+# Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: authentication-service
+  name: reservation-service
   annotations:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
   selector:
-    app: auth-app
+    app: reservation-service
   ports:
     - port: 80
-      #      nodePort: 30070 # exposing to local, to access this service
-      targetPort: 8080
+      #      nodePort: 30085 # expose to local
+      targetPort: 8085
   type: ClusterIP
 ---
+# Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: authentication-service
+  name: reservation-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: authentication-service
+      app: reservation-service
   template:
     metadata:
       labels:
-        app: authentication-service
+        app: reservation-service
     spec:
       containers:
-        - name: auth-app
-          image: vishwaghimire/authentication-service
-          imagePullPolicy: Always
+        - name: reservation-service
+          image: vishwaghimire/reservation-service
+          imagePullPolicy: Never
           ports:
-            - containerPort: 8080
+            - containerPort: 8085
           env:
-            # Database: MySQL
-            - name: MYSQL_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: core-configs
-                  key: mysql_url
-            - name: MYSQL_DB_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: core-configs
-                  key: mysql_authDBName
-            - name: MYSQL_USERNAME
-              value: root
-            - name: MYSQL_PASSWORD
-              value: root
-
+            # Broker: Kafka
             - name: KAFKA_BOOTSTRAP_SERVERS
               valueFrom:
                 configMapKeyRef:
@@ -60,36 +47,43 @@ spec:
                 configMapKeyRef:
                   name: core-configs
                   key: kafka_searchServiceGroupId
-            - name: KAFKA_TUTOR_SIGNUP_TOPIC
+            - name: KAFKA_TUTOR_TOPIC
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
-                  key: tutor-signup-topic
-            - name: KAFKA_STUDENT_SIGNUP_TOPIC
-              valueFrom:
-                configMapKeyRef:
-                  name: core-configs
-                  key: student-signup-topic
+                  key: tutor-topic
             - name: KAFKA_RESERVATION_TOPIC
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
                   key: reservation-topic
-            - name: KAFKA_STUDENT_DETAIL_RESERVATION_TOPIC
-              valueFrom:
-                configMapKeyRef:
-                  name: core-configs
-                  key: student-detail-after-reservation-email-topic
             - name: KAFKA_RESERVATION_APPROVED_TOPIC
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
                   key: reservation-approved-topic
-            - name: KAFKA_RESERVATION_APPROVED_EMAIL_TOPIC
+
+            # Database: MongoDB
+            - name: MONGO_URL
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
-                  key: reservation-approved-email-topic
+                  key: mongo_url
+            - name: MONGO_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: core-configs
+                  key: mongo_applicationDBName
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: core-secrets
+                  key: mongo_user
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: core-secrets
+                  key: mongo_pass
 
             # Tracing: Zipkin & Sleuth
             - name: ZIPKIN_URL
@@ -97,10 +91,7 @@ spec:
                 configMapKeyRef:
                   name: core-configs
                   key: zipkin_url
-            - name: ZIPKIN_ENABLED
-              value: 'true'
 
-            # App Specific
             - name: JWT_SECRET_KEY
               valueFrom:
                 secretKeyRef:

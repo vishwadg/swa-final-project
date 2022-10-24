@@ -49,16 +49,11 @@ spec:
                 configMapKeyRef:
                   name: core-configs
                   key: kafka_searchServiceGroupId
-            - name: KAFKA_JOB_TOPIC
+            - name: KAFKA_TUTOR_REQUIREMENT_TOPIC
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
-                  key: kafka_jobTopic
-            - name: KAFKA_CANDIDATE_TOPIC
-              valueFrom:
-                configMapKeyRef:
-                  name: core-configs
-                  key: kafka_candidateTopic
+                  key: tutor-requirement-topic
 
             # Caching: Redis
             - name: REDIS_HOST

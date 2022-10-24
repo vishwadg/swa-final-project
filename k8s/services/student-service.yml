@@ -1,56 +1,43 @@
+# Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: authentication-service
+  name: student-service
   annotations:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
   selector:
-    app: auth-app
+    app: student-service
   ports:
     - port: 80
-      #      nodePort: 30070 # exposing to local, to access this service
-      targetPort: 8080
+      #      nodePort: 30084 # expose to local
+      targetPort: 8084
   type: ClusterIP
 ---
+# Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: authentication-service
+  name: student-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: authentication-service
+      app: student-service
   template:
     metadata:
       labels:
-        app: authentication-service
+        app: student-service
     spec:
       containers:
-        - name: auth-app
-          image: vishwaghimire/authentication-service
+        - name: student-service
+          image: vishwaghimire/student-service
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 8084
           env:
-            # Database: MySQL
-            - name: MYSQL_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: core-configs
-                  key: mysql_url
-            - name: MYSQL_DB_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: core-configs
-                  key: mysql_authDBName
-            - name: MYSQL_USERNAME
-              value: root
-            - name: MYSQL_PASSWORD
-              value: root
-
-            - name: KAFKA_BOOTSTRAP_SERVERS
+            # Kafka
+            - name: KAFKA_BOOTSTRAP_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
@@ -60,36 +47,38 @@ spec:
                 configMapKeyRef:
                   name: core-configs
                   key: kafka_searchServiceGroupId
-            - name: KAFKA_TUTOR_SIGNUP_TOPIC
-              valueFrom:
-                configMapKeyRef:
-                  name: core-configs
-                  key: tutor-signup-topic
             - name: KAFKA_STUDENT_SIGNUP_TOPIC
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
                   key: student-signup-topic
-            - name: KAFKA_RESERVATION_TOPIC
+            - name: KAFKA_STUDENT_SIGNUP_EMAIL_TOPIC
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
-                  key: reservation-topic
-            - name: KAFKA_STUDENT_DETAIL_RESERVATION_TOPIC
+                  key: student-signup-email-topic
+
+            # Database: MongoDB
+            - name: MONGO_URL
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
-                  key: student-detail-after-reservation-email-topic
-            - name: KAFKA_RESERVATION_APPROVED_TOPIC
+                  key: mongo_url
+            - name: MONGO_DATABASE
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
-                  key: reservation-approved-topic
-            - name: KAFKA_RESERVATION_APPROVED_EMAIL_TOPIC
+                  key: mongo_candidateDBName
+            - name: MONGO_USERNAME
               valueFrom:
-                configMapKeyRef:
-                  name: core-configs
-                  key: reservation-approved-email-topic
+                secretKeyRef:
+                  name: core-secrets
+                  key: mongo_user
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: core-secrets
+                  key: mongo_pass
 
             # Tracing: Zipkin & Sleuth
             - name: ZIPKIN_URL
@@ -98,7 +87,7 @@ spec:
                   name: core-configs
                   key: zipkin_url
             - name: ZIPKIN_ENABLED
-              value: 'true'
+              value: true
 
             # App Specific
             - name: JWT_SECRET_KEY
