@@ -1,17 +1,3 @@
-s8070erver:
-  port: ${SERVER_PORT:8086}
-
-management:
-  endpoint:
-    metrics:
-      enabled: true
-    prometheus:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: health,info,prometheus
-
 spring:
   application:
     name: ${APPLICATION_NAME:notification-service}
@@ -33,9 +19,11 @@ spring:
     enabled: ${SLEUTH_ENABLED:true}
     sampler:
       probability: 1
+
   zipkin:
-    enabled: ${ZIPKIN_ENABLED:false}
+    enabled: ${ZIPKIN_ENABLED:true}
     base-url: ${ZIPKIN_URL:http://localhost:9411/}
+
   mail:
     host: smtp.gmail.com
     port: 587
@@ -51,6 +39,20 @@ spring:
               starttls:
                 required: true
           auth: true
+server:
+  port: ${SERVER_PORT:8086}
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
 #Email Configuration
 #spring:
 #    mail:

@@ -27,6 +27,9 @@ spring:
       student-detail-after-reservation-email-topic: ${KAFKA_STUDENT_DETAIL_RESERVATION_TOPIC:student-detail-after-reservation-email-events}
       reservation-approved-topic: ${KAFKA_RESERVATION_APPROVED_TOPIC:reservation-approved-events}
       reservation-approved-email-topic: ${KAFKA_RESERVATION_APPROVED_EMAIL_TOPIC:reservation-approved-email-events}
+  zipkin:
+    enabled: ${ZIPKIN_ENABLED:true}
+    base-url: ${ZIPKIN_URL:http://localhost:9411/}
 
 management:
   endpoints:
