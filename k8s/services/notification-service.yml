@@ -6,7 +6,7 @@ metadata:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
   selector:
-    app: notification-service
+    app: not-app
   ports:
     - port: 80
       #      nodePort: 30087
@@ -18,17 +18,17 @@ kind: Deployment
 metadata:
   name: notification-service
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: notification-service
+      app: not-app
   template:
     metadata:
       labels:
-        app: notification-service
+        app: not-app
     spec:
       containers:
-        - name: notification-service
+        - name: not-app
           image: vishwaghimire/notification-service
           imagePullPolicy: IfNotPresent
           ports:

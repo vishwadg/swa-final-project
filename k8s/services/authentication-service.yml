@@ -21,11 +21,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: authentication-service
+      app: auth-app
   template:
     metadata:
       labels:
-        app: authentication-service
+        app: auth-app
     spec:
       containers:
         - name: auth-app

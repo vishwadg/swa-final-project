@@ -1,0 +1,62 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress-rewrite
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: /authentication(/|$)(.*)
+            backend:
+              service:
+                name: authentication-service
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: /notification(/|$)(.*)
+            backend:
+              service:
+                name: notification-service
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: /reservation(/|$)(.*)
+            backend:
+              service:
+                name: reservation-service
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: /student(/|$)(.*)
+            backend:
+              service:
+                name: student-service
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: /tutorRequirementSearch(/|$)(.*)
+            backend:
+              service:
+                name: tutor-requirement-search-service
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: /tutorRequirement(/|$)(.*)
+            backend:
+              service:
+                name: tutor-requirement-service
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: /tutor(/|$)(.*)
+            backend:
+              service:
+                name: tutor-service
+                port:
+                  number: 80

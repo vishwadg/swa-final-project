@@ -7,7 +7,7 @@ metadata:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
   selector:
-    app: student-service
+    app: stu-app
   ports:
     - port: 80
       #      nodePort: 30084 # expose to local
@@ -23,14 +23,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: student-service
+      app: stu-app
   template:
     metadata:
       labels:
-        app: student-service
+        app: stu-app
     spec:
       containers:
-        - name: student-service
+        - name: stu-app
           image: vishwaghimire/student-service
           imagePullPolicy: IfNotPresent
           ports:
