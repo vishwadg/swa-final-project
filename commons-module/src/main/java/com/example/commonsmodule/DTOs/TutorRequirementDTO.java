@@ -12,4 +12,5 @@ public class TutorRequirementDTO {
     private String title;
     private String description;
     private Long studentUserId;
+    private String postedDate;
 }

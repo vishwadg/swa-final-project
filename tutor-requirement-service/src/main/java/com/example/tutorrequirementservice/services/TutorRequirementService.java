@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,6 +34,7 @@ public class TutorRequirementService {
     public TutorRequirementDTO save(TutorRequirementDTO payload) {
         Optional<Long> studentUserId = CommonSecurityUtils.getCurrentUserId();
         payload.setStudentUserId(studentUserId.get());
+        payload.setPostedDate(LocalDate.now().toString());
         TutorRequirement tutorRequirement = modelMapper.map(payload, TutorRequirement.class);
         tutorRequirement = tutorRequirementRepository.save(tutorRequirement);
         log.info("Tutor Requirements created Successfully!");
