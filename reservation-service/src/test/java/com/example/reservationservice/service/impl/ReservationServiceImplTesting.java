@@ -57,7 +57,7 @@ public class ReservationServiceImplTesting {
     public void testSave() {
         when(reservationRepository.save(any(Reservation.class))).thenReturn(reservation);
         ReservationDTO response = reservationService.save(reservationDTO);
-        assertEquals(1L, response.getTutorUserId());//todo
+        assertEquals(1L, response.getTutorUserId());
     }
 
 //    @Test
