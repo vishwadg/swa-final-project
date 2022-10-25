@@ -2,6 +2,7 @@ package com.example.reservationservice.service.impl;
 
 
 import com.example.commonsmodule.DTOs.ReservationDTO;
+import com.example.commonsmodule.security.CommonSecurityUtils;
 import com.example.reservationservice.entities.Reservation;
 import com.example.reservationservice.repositories.ReservationRepository;
 import com.example.reservationservice.services.impl.ReservationServiceImpl;
@@ -32,6 +33,11 @@ public class ReservationServiceImplTesting {
     @Mock
     KafkaTemplate kafkaTemplate;
 
+    @Mock
+    CommonSecurityUtils commonSecurityUtils;
+
+
+
     @InjectMocks
     ReservationServiceImpl reservationService;
     ReservationDTO reservationDTO;
@@ -51,7 +57,7 @@ public class ReservationServiceImplTesting {
     public void testSave() {
         when(reservationRepository.save(any(Reservation.class))).thenReturn(reservation);
         ReservationDTO response = reservationService.save(reservationDTO);
-        assertEquals("1", response.getTutorUserId());//todo
+        assertEquals(1L, response.getTutorUserId());//todo
     }
 
 //    @Test
