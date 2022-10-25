@@ -31,12 +31,12 @@ spec:
       containers:
         - name: res-app
           image: vishwaghimire/reservation-service
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8085
           env:
             # Broker: Kafka
-            - name: KAFKA_BOOTSTRAP_SERVERS
+            - name: KAFKA_BOOTSTRAP_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: core-configs

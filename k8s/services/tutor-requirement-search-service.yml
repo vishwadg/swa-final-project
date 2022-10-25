@@ -34,12 +34,12 @@ spec:
       containers:
         - name: trss-app
           image: vishwaghimire/tutor-requirement-search-service
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8081
           env:
             # Broker: Kafka
-            - name: KAFKA_BOOTSTRAP_SERVERS
+            - name: KAFKA_BOOTSTRAP_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: core-configs

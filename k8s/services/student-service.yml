@@ -32,7 +32,7 @@ spec:
       containers:
         - name: stu-app
           image: vishwaghimire/student-service
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8084
           env:

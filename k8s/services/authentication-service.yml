@@ -30,7 +30,7 @@ spec:
       containers:
         - name: auth-app
           image: vishwaghimire/authentication-service
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
@@ -50,7 +50,7 @@ spec:
             - name: MYSQL_PASSWORD
               value: root
 
-            - name: KAFKA_BOOTSTRAP_SERVERS
+            - name: KAFKA_BOOTSTRAP_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
