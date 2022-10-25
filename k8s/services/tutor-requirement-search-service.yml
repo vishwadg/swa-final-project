@@ -6,7 +6,7 @@ metadata:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
   selector:
-    app: tutor-requirement-search-service
+    app: trss-app
   ports:
     - port: 80
       #      nodePort: 30081 # exposing to local, to access this service
@@ -21,18 +21,18 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tutor-requirement-search-service
+      app: trss-app
   template:
     metadata:
       labels:
-        app: tutor-requirement-search-service
+        app: trss-app
     #      annotations:
     #        prometheus.io/scrape: "true"
     #        prometheus.io/port: "8080"
     #        prometheus.io/path: "/actuator/prometheus"
     spec:
       containers:
-        - name: tutor-requirement-search-service
+        - name: trss-app
           image: vishwaghimire/tutor-requirement-search-service
           imagePullPolicy: IfNotPresent
           ports:

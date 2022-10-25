@@ -6,7 +6,7 @@ metadata:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
   selector:
-    app: tutor-service
+    app: tu-app
   ports:
     - port: 80
       #      nodePort: 30082
@@ -21,14 +21,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tutor-service
+      app: tu-app
   template:
     metadata:
       labels:
-        app: tutor-service
+        app: tu-app
     spec:
       containers:
-        - name: tutor-service
+        - name: tu-app
           image: vishwaghimire/tutor-service
           imagePullPolicy: IfNotPresent
           ports:

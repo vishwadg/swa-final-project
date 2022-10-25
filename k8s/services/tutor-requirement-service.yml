@@ -6,7 +6,7 @@ metadata:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
   selector:
-    app: tutor-requirement-service
+    app: trs-app
   ports:
     - port: 80
       #      nodePort: 30084
@@ -21,14 +21,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tutor-requirement-service
+      app: trs-app
   template:
     metadata:
       labels:
-        app: tutor-requirement-service
+        app: trs-app
     spec:
       containers:
-        - name: job-service
+        - name: trs-app
           image: vishwaghimire/tutor-requirement-service
           imagePullPolicy: IfNotPresent
           ports:

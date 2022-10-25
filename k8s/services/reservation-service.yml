@@ -1,4 +1,3 @@
-# Service
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,7 +6,7 @@ metadata:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
   selector:
-    app: reservation-service
+    app: res-app
   ports:
     - port: 80
       #      nodePort: 30085 # expose to local
@@ -23,14 +22,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: reservation-service
+      app: res-app
   template:
     metadata:
       labels:
-        app: reservation-service
+        app: res-app
     spec:
       containers:
-        - name: reservation-service
+        - name: res-app
           image: vishwaghimire/reservation-service
           imagePullPolicy: IfNotPresent
           ports:
