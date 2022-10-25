@@ -32,7 +32,9 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationDTO save(ReservationDTO reservationDTO) {
-        reservationDTO.setTutorUserId(CommonSecurityUtils.getCurrentUserId().get());
+        if(CommonSecurityUtils.getCurrentUserId().isPresent()){
+            reservationDTO.setTutorUserId(CommonSecurityUtils.getCurrentUserId().get());
+        }
         log.info("Reservation process started...");
         Reservation reservation = modelMapper.map(reservationDTO, Reservation.class);
         Reservation reservationRepo = reservationRepository.save(reservation);
