@@ -13,8 +13,10 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -37,9 +39,14 @@ public class ReservationServiceImpl implements ReservationService {
         }
         log.info("Reservation process started...");
         Reservation reservation = modelMapper.map(reservationDTO, Reservation.class);
+        reservation.setReservationDate(LocalDate.now().toString());
+
         Reservation reservationRepo = reservationRepository.save(reservation);
         reservationDTO.setReservationId(reservationRepo.getReservationId());
         reservationDTO.setTutorRequirementId(reservationRepo.getTutorRequirementId());
+        reservationDTO.setTutorRequirementTitle(reservationDTO.getTutorRequirementTitle());
+        reservationDTO.setTutorRequirementDesc(reservationDTO.getTutorRequirementDesc());
+        reservationDTO.setReservationDate(reservationRepo.getReservationDate());
         kafkaReservationTemplate.send(reservationTopic, reservationDTO);
         log.info("Success: Reservation data saved");
         return reservationDTO;
@@ -88,4 +95,22 @@ public class ReservationServiceImpl implements ReservationService {
 
         return modelMapper.map(reservation, ReservationDTO.class);
     }
+
+    @Override
+    public List<ReservationDTO> findAllReservationByTutorUserId() {
+        Long userId = CommonSecurityUtils.getCurrentUserId().get();
+        return reservationRepository.findAllByTutorUserId(userId).stream().map(
+                re -> modelMapper.map(re, ReservationDTO.class)
+        ).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReservationDTO> findAllReservationRequestByStudentUserId() {
+        Long userId = CommonSecurityUtils.getCurrentUserId().get();
+        return reservationRepository.findAllByStudentUserId(userId).stream().map(
+                re -> modelMapper.map(re, ReservationDTO.class)
+        ).collect(Collectors.toList());
+    }
+
+
 }

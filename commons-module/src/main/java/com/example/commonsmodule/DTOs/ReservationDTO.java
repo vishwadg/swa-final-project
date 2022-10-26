@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 
 @Data
 @Builder
@@ -15,7 +14,9 @@ public class ReservationDTO {
     private String reservationId;
     private Long tutorUserId;;
     private String tutorRequirementId;
-    private LocalDate reservationDate;
+    private String reservationDate;
     private boolean reservationStatus;
     private Long studentUserId;
+    private String tutorRequirementTitle;
+    private String tutorRequirementDesc;
 }
