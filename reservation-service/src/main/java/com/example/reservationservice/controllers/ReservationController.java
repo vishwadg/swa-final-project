@@ -41,4 +41,14 @@ public class ReservationController {
     public ResponseEntity<?> findAllReservationByTutorRequirementId(@PathVariable String tutorRequirement) {
         return new ResponseEntity<>(reservationService.findAllByTutorRequirementId(tutorRequirement), HttpStatus.OK);
     }
+
+    @GetMapping("/all-by-tutor")
+    public ResponseEntity<?> findAllReservationsByTutorId(){
+        return new ResponseEntity<>(reservationService.findAllReservationByTutorUserId(), HttpStatus.OK);
+    }
+
+    @GetMapping("/all-requests")
+    public ResponseEntity<?> findAllReservationsRequestsByStudentUserId(){
+        return new ResponseEntity<>(reservationService.findAllReservationRequestByStudentUserId(), HttpStatus.OK);
+    }
 }
