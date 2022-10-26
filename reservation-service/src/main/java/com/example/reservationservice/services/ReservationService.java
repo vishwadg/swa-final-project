@@ -15,4 +15,8 @@ public interface ReservationService {
     ReservationDTO findById(String id);
 
     ReservationDTO updateReservationStatus(ReservationDTO reservationDTO);
+
+    List<ReservationDTO> findAllReservationByTutorUserId();
+
+    List<ReservationDTO> findAllReservationRequestByStudentUserId();
 }
