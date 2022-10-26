@@ -16,6 +16,8 @@ spring:
 
   data:
     mongodb:
+      username: ${MONGO_USERNAME:mongo}
+      password: ${MONGO_PASSWORD:mongo}
       database: ${MONGO_DATABASE:tutor-requirement-db}
       port: 27017
       host: ${MONGO_URL:localhost}

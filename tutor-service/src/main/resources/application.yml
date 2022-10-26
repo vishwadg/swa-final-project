@@ -21,6 +21,8 @@ spring:
 #      authentication-database: admin
 #      username: ${MONGO_USERNAME:mongo}
 #      password: ${MONGO_PASSWORD:mongo}
+      username: ${MONGO_USERNAME:mongo}
+      password: ${MONGO_PASSWORD:mongo}
       database: ${MONGO_DATABASE:tutor-db}
       port: 27017
       host: ${MONGO_URL:localhost}

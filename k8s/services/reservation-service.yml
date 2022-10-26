@@ -72,7 +72,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
-                  key: mongo_applicationDBName
+                  key: mongo_tutorDBName
             - name: MONGO_USERNAME
               valueFrom:
                 secretKeyRef:
