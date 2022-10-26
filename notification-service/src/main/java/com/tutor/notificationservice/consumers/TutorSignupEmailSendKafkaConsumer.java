@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class TutorSignupEmailSendKafkaConsumer {
     private final TutorEmailNotificationService tutorEmailNotificationService;
 
-    @KafkaListener(topics = {"${spring.kafka.custom.tutor-signup-topic}"}, containerFactory = "kafkaListenerJsonFactory",
+    @KafkaListener(topics = {"${spring.kafka.custom.tutor-signup-email-topic}"}, containerFactory = "kafkaListenerJsonFactory",
             groupId = "${spring.kafka.consumer.group-id}", autoStartup = "${spring.kafka.custom.enable-listeners}")
     public void consumeTutorSignUpEmailDTO(UserDTO userDTO) {
         log.info("Received TutorDTO {}", userDTO);
