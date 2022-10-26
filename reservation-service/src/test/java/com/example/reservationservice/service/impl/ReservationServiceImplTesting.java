@@ -79,7 +79,7 @@ public class ReservationServiceImplTesting {
         return Reservation.builder()
                 .tutorUserId(1L)
                 .tutorRequirementId("1")
-                .reservationDate(LocalDate.of(2022, 01, 22))
+                .reservationDate(LocalDate.of(2022, 01, 22).toString())
                 .reservationStatus(true)
                 .build();
     }
@@ -89,7 +89,7 @@ public class ReservationServiceImplTesting {
                 .reservationId("100")
                 .tutorUserId(1L)
                 .tutorRequirementId("1")
-                .reservationDate(LocalDate.of(2022, 01, 22))
+                .reservationDate(LocalDate.of(2022, 01, 22).toString())
                 .reservationStatus(true)
                 .build();
     }
@@ -100,14 +100,14 @@ public class ReservationServiceImplTesting {
                         .reservationId("100")
                         .tutorUserId(101L)
                         .tutorRequirementId("python")
-                        .reservationDate(LocalDate.of(2022, 02, 11))
+                        .reservationDate(LocalDate.of(2022, 02, 11).toString())
                         .reservationStatus(true)
                         .build(),
                 Reservation.builder()
                         .reservationId("100")
                         .tutorUserId(101L)
                         .tutorRequirementId("python")
-                        .reservationDate(LocalDate.of(2022, 02, 11))
+                        .reservationDate(LocalDate.of(2022, 02, 11).toString())
                         .reservationStatus(true)
                         .build()
 
