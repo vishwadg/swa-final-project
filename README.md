@@ -1,6 +1,6 @@
 ### Mind Map
 
-![Mind Map](docs/readme-diagrams/Mind_map_final.png)
+![Mind Map](docs/readme-diagrams/Mind%20MapFinal.jpg)
 
 ## #How to run?
 
