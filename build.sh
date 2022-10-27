@@ -2,12 +2,6 @@
 
 folders=(
   authentication-service
-#  notification-service
-#  reservation-service
-#  student-service
-#  tutor-requirement-search-service
-#  tutor-requirement-service
-#  tutor-service
 )
 
 for folder in ${folders[@]}
