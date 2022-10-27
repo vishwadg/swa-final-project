@@ -17,8 +17,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Build docker compose
-        run: docker build . -t vishwaghimire/authentication-service:latest
+      - name: Run script file
+        run: |
+            chmod +x ./build.sh
+            sh build.sh
+        shell: sh
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -26,6 +29,26 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Push to Docker Hub
         run: docker push vishwaghimire/authentication-service:latest
+      - name: Push to Docker Hub
+        run: docker push vishwaghimire/notification-service:latest
+      - name: Push to Docker Hub
+        run: docker push vishwaghimire/reservation-service:latest
+      - name: Push to Docker Hub
+        run: docker push vishwaghimire/student-service:latest
+      - name: Push to Docker Hub
+        run: docker push vishwaghimire/tutor-requirement-search-service:latest
+      - name: Push to Docker Hub
+        run: docker push vishwaghimire/tutor-requirement-service:latest
+      - name: Push to Docker Hub
+        run: docker push vishwaghimire/tutor-service:latest
+
+#        authentication-service
+#        notification-service
+#        reservation-service
+#        student-service
+#        tutor-requirement-search-service
+#        tutor-requirement-service
+#        tutor-service
 #      - name: Set up Docker Buildx
 #        uses: docker/setup-buildx-action@v2
 #        with:
