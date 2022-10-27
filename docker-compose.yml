@@ -8,7 +8,7 @@ services:
       - 8080:8080
     restart: always
     build:
-      context: ./authentication-service:0.0.1
+      context: ./authentication-service
       dockerfile: Dockerfile
 
 #  notification-service:
