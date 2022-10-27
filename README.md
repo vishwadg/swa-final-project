@@ -1,6 +1,6 @@
 ### Mind Map
 
-![Mind Map](docs/readme-diagrams/Mind%20Map%201.jpg)
+![Mind Map](docs/readme-diagrams/Mind_map_final.png)
 
 ## #How to run?
 
@@ -49,7 +49,7 @@ sudo nano /etc/hosts
 ```
 # FROM: "authentication-service", This is for create user
 
-curl --location --request POST 'http://TODO' \
+curl --location --request POST 'http://localhost:8080/users/register' \
 --header 'Content-type:application/json' \
 --data-raw '{
 "fullName": "Test user",
@@ -59,7 +59,7 @@ curl --location --request POST 'http://TODO' \
 
 # FROM: "authentication-service", This is for Login
 
-curl --location --request POST 'http://our.domain/path/path' \
+curl --location --request POST 'http://localhost:8080/users' \
 --header 'Content-type:application/json' \
 --data-raw '{
 "username":"test1",
@@ -82,7 +82,7 @@ _Steps: Creating multi-module project_
 
 ## # How to contribute to the project ?
 
-_INSTRUCTION:__
+_INSTRUCTION:_
 
 1. Use _"develop"_ branch to make and commit changes.
 2. We will merge to __"main"__ on the day-end or when services are integrated and working fine.
