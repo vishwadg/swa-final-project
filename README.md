@@ -1,6 +1,6 @@
 ### Mind Map
 
-![Mind Map](docs/readme-diagrams/Mind_map_final.png)
+![Mind Map](docs/readme-diagrams/Mind%20MapFinal.jpg)
 
 ## #How to run?
 
@@ -51,21 +51,64 @@ sudo nano /etc/hosts
 
 curl --location --request POST 'http://localhost:8080/users/register' \
 --header 'Content-type:application/json' \
---data-raw '{
-"fullName": "Test user",
-"username":"test1",
-"password":"test1"
-}'
+--data-raw 
+- Student Registration
+            '{
+                "username": "student@gmail.com",
+                "password": "pass",
+                "role": "ROLE_STUDENT",
+                "fullName": "StudentName",
+                "address": "1000 N",
+                "phone": "12345",
+                "description": "I am a student"
+            }'
+
+-Tutor Registration
+            '{
+                "username": "tutor@gmail.com",
+                "password": "pass",
+                "role": "ROLE_TUTOR",
+                "fullName": "TutorName",
+                "address": "1000 N",
+                "phone": "12345",
+                "description": "I am a tutor",
+                "expertise": "Java",
+                "shortInfo": "I am experts."
+            }'
 
 # FROM: "authentication-service", This is for Login
 
+
 curl --location --request POST 'http://localhost:8080/users' \
 --header 'Content-type:application/json' \
---data-raw '{
-"username":"test1",
-"password":"test1"
-}'
+--data-raw 
+-Student Login
+               '{
+                   "username": "student@gmail.com",
+                   "password": "pass"
+               }'
+
+-Tutor Login
+               '{
+                   "username": "tutor@gmail.com",
+                   "password": "pass"
+               }'
+
+# From: "tutor-requirement-service", This for creating tutor Requirements for Students
+--header 'Content-type:application/json' \
+--data-raw 
+               '{
+                   "title": "Physics Teacher",
+                   "description": "I am looking for tutor who can teach physics."
+               }'
+
+
+# From: "reservation-service", This for creating Reservation for Students
+--header 'Content-type:application/json' \
+--data-raw
+Note: After searching tutor requirement the tutor will send requst to student by clicking send request button from UI.       
 ```
+
 
 ## # How to create this project, and how to add new modules/services?
 
