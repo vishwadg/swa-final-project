@@ -1,6 +1,10 @@
 ### Mind Map
 
 ![Mind Map](docs/readme-diagrams/Mind%20MapUploadIt.jpg)
+               Fig:1 Deadline Mind Map
+
+![Mind Map](docs/readme-diagrams/MindMap2.jpg)
+                  Fig:2 Core Architecture
 
 ## #How to run?
 
