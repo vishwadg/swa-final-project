@@ -4,14 +4,14 @@ spring:
 
   kafka:
     consumer:
-      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER:localhost:9092}
       group-id: ${KAFKA_CONSUMER_GROUP_ID:services-group}
 
     custom:
       enable-listeners: ${KAFKA_ENABLE_LISTENERS:true}
 #      notification-service-topic: ${KAFKA_NOTIFICATION_TOPIC:notification-service-events}
-      tutor-signup-topic: ${KAFKA_TUTOR_SIGNUP_TOPIC:tutor-signup-events}
-      student-signup-topic: ${KAFKA_STUDENT_SIGNUP_TOPIC:student-signup-events}
+      tutor-signup-email-topic: ${KAFKA_TUTOR_SIGNUP_EMAIL_TOPIC:tutor-signup-events}
+      student-signup-email-topic: ${KAFKA_STUDENT_SIGNUP_EMAIL_TOPIC:student-signup-events}
       student-detail-after-reservation-email-topic: ${KAFKA_STUDENT_DETAIL_RESERVATION_TOPIC:student-detail-after-reservation-email-events}
       reservation-approved-email-topic: ${KAFKA_RESERVATION_APPROVED_EMAIL_TOPIC:reservation-approved-email-events}
 

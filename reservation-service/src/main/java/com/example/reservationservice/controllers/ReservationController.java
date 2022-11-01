@@ -35,7 +35,6 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.findById(id), HttpStatus.OK);
     }
 
-
     @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/tutorRequirementId/{tutorRequirement}")
     public ResponseEntity<?> findAllReservationByTutorRequirementId(@PathVariable String tutorRequirement) {

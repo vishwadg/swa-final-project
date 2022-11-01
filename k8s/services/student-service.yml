@@ -32,7 +32,7 @@ spec:
       containers:
         - name: stu-app
           image: vishwaghimire/student-service
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8084
           env:
@@ -68,7 +68,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
-                  key: mongo_candidateDBName
+                  key: mongo_tutorDBName
             - name: MONGO_USERNAME
               valueFrom:
                 secretKeyRef:

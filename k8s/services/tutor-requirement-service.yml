@@ -10,7 +10,7 @@ spec:
   ports:
     - port: 80
       #      nodePort: 30084
-      targetPort: 8084
+      targetPort: 8083
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -30,12 +30,12 @@ spec:
       containers:
         - name: trs-app
           image: vishwaghimire/tutor-requirement-service
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
-            - containerPort: 8084
+            - containerPort: 8083
           env:
             # Broker: Kafka
-            - name: KAFKA_BOOTSTRAP_SERVERS
+            - name: KAFKA_BOOTSTRAP_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
@@ -76,7 +76,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: core-configs
-                  key: mongo_candidateDBName
+                  key: mongo_tutorDBName
             - name: MONGO_USERNAME
               valueFrom:
                 secretKeyRef:

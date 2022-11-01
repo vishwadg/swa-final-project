@@ -30,12 +30,12 @@ spec:
       containers:
         - name: not-app
           image: vishwaghimire/notification-service
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8086
           env:
             # Kafka
-            - name: KAFKA_BOOTSTRAP_SERVERS
+            - name: KAFKA_BOOTSTRAP_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: core-configs

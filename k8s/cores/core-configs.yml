@@ -37,9 +37,9 @@ data:
   mysql_url: swa-mysql.default.svc.cluster.local
   mysql_authDBName: auth-db
 
-  # MySQL
+  # MongoDB
   mongo_url: mongo-mongodb.default.svc.cluster.local
-  mongo_candidateDBName: candidate-db
-  mongo_recruiterDBName: recruiter-db
-  mongo_applicationDBName: application-db
-
+  mongo_studentDBName: student-db
+  mongo_tutorDBName: tutor-db
+  mongo_reservationDBName: reservation-db
+  mongo_tutorRequirementDBName: tutorRequirement-db

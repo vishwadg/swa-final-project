@@ -4,7 +4,7 @@ spring:
 
   kafka:
     producer:
-      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER:localhost:9092}
     consumer:
       group-id: ${KAFKA_CONSUMER_GROUP_ID:services-group}
     custom:
@@ -20,6 +20,8 @@ spring:
       #      authentication-database: admin
       #      username: ${MONGO_USERNAME:mongo}
       #      password: ${MONGO_PASSWORD:mongo}
+      username: ${MONGO_USERNAME:mongo}
+      password: ${MONGO_PASSWORD:mongo}
       database: ${MONGO_DATABASE:reservation-db}
       port: 27017
       host: ${MONGO_URL:localhost}
